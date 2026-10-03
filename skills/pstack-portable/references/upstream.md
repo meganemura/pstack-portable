@@ -39,6 +39,8 @@ For richer prompts such as Comment Sicko, recover the actual definition; do not 
 
 ## Installation coverage
 
-For the full mode, install all upstream pstack skills. Installing only `poteto-mode` does not install its routed skills automatically.
+With a full checkout selected through `pstack-upstream.json`, resolve every routed skill and agent definition from that checkout.
+Only the compatible practice profile needs direct registration; the other workflows remain readable dependencies.
+With installed skills alone, the full mode needs all routed upstream skills. Installing only `poteto-mode` does not install them automatically.
 For a narrow workflow, resolve its required skills before execution and report any missing dependency by name.
 Keep a task-local record of selected skill paths, recovered resources, revision evidence, and capability gaps.

@@ -15,6 +15,9 @@ This avoids bundling prompt copies that would need separate synchronization with
 An alternative registers only the wrapper and reads upstream from a local checkout.
 This avoids name collisions and direct activation of unadapted upstream skills.
 The local source-location file records that checkout outside the wrapper repository.
+The local installation profile registers 23 principles and five compatible practice skills alongside the wrapper.
+Cursor-dependent workflows stay in the selected checkout and execute through the adapter.
+Before installation, report destination collisions. An authorized replacement can affect every agent reading the shared directory.
 
 ## Limits
 

@@ -5,8 +5,10 @@ Upstream owns the workflows. This package keeps one wrapper skill and environmen
 
 ## Use
 
-Use the skills installer to install upstream pstack and `pstack-portable` for both Claude Code and Codex.
-Select all pstack skills for the full mode, and select `pstack-portable` from the wrapper package.
+For local checkouts, follow [Install from local checkouts](docs/install-local.md).
+That profile registers 28 compatible upstream skills and this wrapper for Claude Code, Cursor, and Codex.
+The full upstream checkout supplies the remaining workflows through the wrapper.
+The following remote installation is an alternative that registers every upstream skill.
 The skills CLI documents installation as `npx skills add <source>` in its [CLI reference](https://www.skills.sh/docs/cli).
 Install the wrapper from `meganemura/pstack-portable` after authenticating Git access to this private repository.
 
@@ -18,13 +20,6 @@ npx skills add meganemura/pstack-portable
 Choose all upstream pstack skills from the first source, and `pstack-portable` from the second.
 Select Claude Code, Codex, and Cursor as installation targets through your installer's supported options.
 Keep each installed skill's resources with its `SKILL.md`.
-For local sources, use absolute paths with the installed CLI:
-
-```sh
-skills add /absolute/path/to/plugins/pstack -g -a claude-code cursor codex -s '*' -y
-skills add /absolute/path/to/pstack-portable -g -a claude-code cursor codex -s pstack-portable -y
-```
-
 The installer manages the destination copies or links. Reinstall after editing the source to update installed content.
 If upstream skill names conflict with existing skills, register only this wrapper and retain an upstream checkout as its readable dependency.
 Set the checkout's absolute root in the local file `~/.agents/pstack-upstream.json`:
