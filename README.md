@@ -51,6 +51,11 @@ Invoking the original `poteto-mode` directly bypasses this wrapper.
 
 ## Scope
 
+Upstream executable resources use [script preflight and explicit adapters](skills/pstack-portable/references/executables.md).
+The wrapper provides a Git-only worktree audit, blocks unknown or changed scripts, and checks bootstrap prerequisites before execution.
+The non-Cursor plan-checker gate remains unresolved because its required program markers are Cursor-specific.
+Hook and Cursor Automations registration are separate from skill installation; this wrapper does not install them.
+
 Model settings are separate for each execution environment:
 
 | Environment | Project file | Global file |
@@ -70,3 +75,9 @@ The adapter handles delegation, settings, model availability, workspace isolatio
 It does not supply cross-provider runners, cloud workers, durable scheduling, or hooks.
 It reports missing capabilities instead of claiming equivalent execution.
 See [the design decision](docs/adapter-design.md) for the boundary and validation cases.
+
+## License
+
+Original wrapper contributions are [MIT-licensed](LICENSE).
+Upstream pstack attribution and its preserved MIT license are recorded in [NOTICE.md](NOTICE.md) and [LICENSE-pstack](LICENSE-pstack).
+The installable skill carries both license texts and its attribution notice so they remain available after a skills-only installation.

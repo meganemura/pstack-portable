@@ -1,5 +1,6 @@
 ---
 name: pstack-portable
+license: MIT
 description: Run upstream pstack workflows in Claude Code, Codex, or Cursor through a small compatibility layer. Use for portable pstack across these environments.
 ---
 
@@ -7,6 +8,7 @@ description: Run upstream pstack workflows in Claude Code, Codex, or Cursor thro
 
 This skill adapts execution mechanics. Upstream pstack owns the engineering principles, playbooks, review criteria, and prompts.
 Install upstream pstack skills and this wrapper with the skills installer. This wrapper does not supply upstream workflows.
+License and upstream attribution travel with the installable skill. See [attribution.md](references/attribution.md).
 
 ## Load the execution contract
 
@@ -15,6 +17,7 @@ Install upstream pstack skills and this wrapper with the skills installer. This 
 3. Read [upstream.md](references/upstream.md) and resolve the installed upstream skill locations. Record their absolute paths and any available source revision. A full repository checkout is optional.
 4. Read the explicit requested upstream skill. Otherwise read upstream `poteto-mode` and its selected playbook. Resolve nested skills and resources through the same installed skill map.
 5. Follow upstream instructions with the loaded translations. Do not invoke an unwrapped slash command that starts a new context without this contract.
+6. Before a playbook invokes an upstream script, hook, or automation, read [executables.md](references/executables.md). Run script preflight and follow its verdict before execution.
 
 ## Precedence and continuity
 

@@ -68,6 +68,11 @@ DISABLE_TELEMETRY=1 skills add "$portable_source" -g -a claude-code cursor codex
 ```
 
 The installer manages destination copies and agent links. Local source changes require reinstallation.
+Preserve upstream licensing in each copied skill folder. The upstream license lives at the checkout root, which a skills-only installer can omit.
+For every selected skill, copy `<pstack-source>/LICENSE` to `<installed-skill>/LICENSE-pstack` after verifying its source.
+Keep Lauren Tan's copyright notice and the full MIT text unchanged. Do not overwrite a different existing notice.
+Repeat this step after reinstallation if the installer replaces the skill folder.
+The wrapper's own skill folder already contains its license and upstream attribution resources.
 Retain the full upstream checkout, including `agents`, `scripts`, and skill resources.
 Its workflows can read and execute those resources through the wrapper without registering every upstream skill.
 
@@ -91,6 +96,7 @@ skills list -g -a claude-code cursor codex
 
 Check all 28 selected skills and `pstack-portable` at the actual destination paths.
 Compare installed files with their selected source folders, including references and scripts.
+Verify each installed upstream skill also retains `LICENSE-pstack` with the original license text.
 Verify that the selected upstream root is readable.
 Skill discovery occurs when the application refreshes its catalog; use a new session if the running session retains its old catalog.
 

@@ -2,6 +2,7 @@
 
 These rules translate Cursor dependencies in upstream skills, agent prompts, playbooks, and scripts.
 They are workflow guidance, not runtime interception. Inspect a script before running it when its behavior depends on Cursor state.
+Use [executables.md](executables.md) and script preflight for upstream executable resources. A renamed command does not adapt a script's internal assumptions.
 
 ## Models and settings
 
@@ -41,7 +42,7 @@ Without one, finish the current bounded work and leave a resumable checkpoint. R
 Replace `agent-transcripts` and `~/.cursor/projects` references with the active session's exposed history or a user-supplied export.
 Do not search unrelated sessions or browser profiles.
 If history is unavailable, use the current checkout, commits, PRs, and supplied notes; label reconstruction gaps.
-Inspect `worktree-audit.sh` and other history-dependent scripts before execution. Use ordinary Git evidence when their Cursor assumptions fail.
+Route `worktree-audit.sh` through the alternate audit in `executables.md`. Keep chat recency and PR state unresolved when evidence is unavailable.
 
 ## External skills and live verification
 

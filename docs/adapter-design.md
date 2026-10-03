@@ -24,6 +24,14 @@ The wrapper does not bridge applications or invoke provider CLIs. Cursor can use
 
 ## Limits
 
+Executable compatibility has an explicit mapping and a fingerprinted preflight.
+Known portable scripts retain upstream implementation. Cursor-dependent worktree auditing uses a wrapper-owned Node adapter.
+The Cursor plan-checker gate remains unresolved on other hosts rather than weakening its assertions.
+Preflight checks prepared dependencies so upstream bootstrap cannot silently begin an installation after a successful prerequisite check.
+Concurrent changes after preflight remain possible; run it immediately before execution and preserve normal file and permission boundaries.
+Hooks require event-schema adaptation and separate host registration. The inspected upstream plugin manifest registers skills and agents.
+Cursor Automations stay host-specific. They do not become portable by installing skill files.
+
 Markdown instructions guide the agent; they cannot intercept tool calls or guarantee precedence over higher-level instructions.
 An upstream update can introduce a new execution dependency. The agent must check and map it before use.
 Multi-model execution needs models supported by the active native agent tool. Multiple agents on one model do not provide model diversity.
