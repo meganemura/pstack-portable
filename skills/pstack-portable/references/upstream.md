@@ -5,7 +5,9 @@ Skills installers may copy or symlink individual skill folders without copying r
 
 ## Skill map
 
-Prefer a user-supplied upstream location. Otherwise use the active session's exposed skill locations.
+Prefer a user-supplied upstream location, then the `root` path in `~/.agents/pstack-upstream.json` when that file exists.
+This local file is source-location data. Validate that the root contains `skills/poteto-mode/SKILL.md` before using it.
+Otherwise use the active session's exposed skill locations.
 When a catalog is incomplete, inspect the active project's and user's configured skill directories for pstack skill folders.
 Use targeted discovery of `poteto-mode/SKILL.md`, `interrogate/SKILL.md`, and required `principle-*/SKILL.md` files.
 Common roots include `.agents/skills` and `.claude/skills`; use the actual environment configuration rather than assuming those paths.

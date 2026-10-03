@@ -3,7 +3,7 @@
 ## Decision
 
 Keep upstream pstack unchanged. Load one portable entry skill before reading upstream workflows.
-Use separate Claude Code and Codex references for tool differences, plus one shared capability contract.
+Use separate Claude Code, Codex, and Cursor references for tool differences, plus one shared capability contract.
 Distinct skill names preserve an explicit choice between original and adapted execution.
 
 The entry skill resolves an installed skill map and passes that map and the adapter contract to every child.
@@ -12,6 +12,9 @@ Settings use upstream role labels, but the wrapper reads portable files explicit
 The normal distribution installs original pstack skills and this wrapper through a skills installer.
 Individual skill copies retain local resources. Missing repository-level prompts require retrieval from a verified source revision.
 This avoids bundling prompt copies that would need separate synchronization with upstream.
+An alternative registers only the wrapper and reads upstream from a local checkout.
+This avoids name collisions and direct activation of unadapted upstream skills.
+The local source-location file records that checkout outside the wrapper repository.
 
 ## Limits
 

@@ -1,6 +1,6 @@
 ---
 name: pstack-portable
-description: Run upstream pstack workflows in Claude Code or Codex through a small compatibility layer. Use for portable pstack, or a pstack workflow in either environment.
+description: Run upstream pstack workflows in Claude Code, Codex, or Cursor through a small compatibility layer. Use for portable pstack across these environments.
 ---
 
 # Portable pstack
@@ -10,7 +10,7 @@ Install upstream pstack skills and this wrapper with the skills installer. This 
 
 ## Load the execution contract
 
-1. Identify the active environment from its exposed tools. Read [codex.md](references/codex.md) for Codex or [claude-code.md](references/claude-code.md) for Claude Code.
+1. Identify the active environment from its exposed tools. Read [codex.md](references/codex.md), [claude-code.md](references/claude-code.md), or [cursor.md](references/cursor.md) for the active environment.
 2. Read [capabilities.md](references/capabilities.md). Apply these translations throughout this workflow, including nested upstream skills and agent prompts.
 3. Read [upstream.md](references/upstream.md) and resolve the installed upstream skill locations. Record their absolute paths and any available source revision. A full repository checkout is optional.
 4. Read the explicit requested upstream skill. Otherwise read upstream `poteto-mode` and its selected playbook. Resolve nested skills and resources through the same installed skill map.

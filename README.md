@@ -1,6 +1,6 @@
 # pstack-portable
 
-A small execution adapter for upstream [pstack](https://github.com/cursor/plugins/tree/main/pstack), for Claude Code and Codex.
+A small execution adapter for upstream [pstack](https://github.com/cursor/plugins/tree/main/pstack), for Claude Code, Codex, and Cursor.
 Upstream owns the workflows. This package keeps one wrapper skill and environment-specific translations.
 
 ## Use
@@ -16,8 +16,24 @@ npx skills add meganemura/pstack-portable
 ```
 
 Choose all upstream pstack skills from the first source, and `pstack-portable` from the second.
-Select Claude Code and Codex as installation targets through your installer's supported options.
+Select Claude Code, Codex, and Cursor as installation targets through your installer's supported options.
 Keep each installed skill's resources with its `SKILL.md`.
+For local sources, use absolute paths with the installed CLI:
+
+```sh
+skills add /absolute/path/to/plugins/pstack -g -a claude-code cursor codex -s '*' -y
+skills add /absolute/path/to/pstack-portable -g -a claude-code cursor codex -s pstack-portable -y
+```
+
+The installer manages the destination copies or links. Reinstall after editing the source to update installed content.
+If upstream skill names conflict with existing skills, register only this wrapper and retain an upstream checkout as its readable dependency.
+Set the checkout's absolute root in the local file `~/.agents/pstack-upstream.json`:
+
+```json
+{"root": "/absolute/path/to/plugins/pstack"}
+```
+
+This file stays on the user's machine. It does not belong in this repository.
 You can also try it without installation by asking the agent to read the wrapper at its absolute path.
 
 ```text
