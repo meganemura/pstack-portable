@@ -37,7 +37,7 @@ function inspect() {
     return { status: 'ADAPTER', command: ['node', resolve(here, 'worktree-audit.mjs'), '<repository>'], reason: 'Use Git-only evidence; Cursor chat recency is unavailable and cleanup approval stays unresolved.' };
   }
   if (script === `${prefix}check-plan.mjs`) {
-    if (environment !== 'cursor') return { status: 'BLOCKED', reason: 'The upstream plan checker requires Cursor program markers. Review shared plan criteria manually and report the automated gate unresolved.' };
+    if (environment !== "cursor") return { status: "BLOCKED", workflow: "multi-phase-plan", reason: "The upstream multi-phase plan checker requires Cursor program markers. This is not a general Feature gate. For a selected multi-phase-plan workflow, review shared criteria manually and report that automated gate unresolved." };
     return { status: 'READY', command: ['node', resolve(root, script), '<plan.md>'] };
   }
   if (script === 'skills/show-me-your-work/scripts/log.sh') {

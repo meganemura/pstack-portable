@@ -30,6 +30,12 @@ An unknown script needs an explicit mapping. Test, typecheck, and library files 
 | `poteto-mode/scripts/watch-pr/watch-pr` | Bun, prepared locked dependencies, and authenticated `gh` are required. It watches GitHub; wake-up capability is separate. |
 | `poteto-mode/scripts/bootstrap.ts` | A dependency helper, not a direct task command. Preflight blocks entry points whose bootstrap would auto-install. |
 
+The plan checker belongs to upstream `playbooks/multi-phase-plan.md`, step 6.
+Select it when that workflow produces its full multi-PR plan skeleton.
+Feature step 3 instead requires the four-item throughput checkpoint. Do not add the plan checker as a general Feature completion gate.
+A compatibility probe can report `BLOCKED` without creating a requirement in the active workflow.
+Report an unsupported script as an unmet task gate only when the selected workflow actually requires it.
+
 The alternate worktree audit does not fetch, query PRs, read chat history, prune, or delete.
 Ancestry against a local base ref does not prove squash-merge state. Unknown chat and PR evidence stays unknown.
 Every worktree requires review before cleanup; `needs-review` is not a safe-to-delete verdict.
