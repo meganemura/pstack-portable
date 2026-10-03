@@ -18,12 +18,15 @@ The local source-location file records that checkout outside the wrapper reposit
 The local installation profile registers 23 principles and five compatible practice skills alongside the wrapper.
 Cursor-dependent workflows stay in the selected checkout and execute through the adapter.
 Before installation, report destination collisions. An authorized replacement can affect every agent reading the shared directory.
+Model sheets are isolated by environment at project and global scopes. A project sheet overrides the matching global sheet as a whole.
+Setup updates only the active environment. Native delegation determines available models and reasoning effort.
+The wrapper does not bridge applications or invoke provider CLIs. Cursor can use multiple model families when its own native tool supports them.
 
 ## Limits
 
 Markdown instructions guide the agent; they cannot intercept tool calls or guarantee precedence over higher-level instructions.
 An upstream update can introduce a new execution dependency. The agent must check and map it before use.
-Multi-model execution needs actual supported models or an existing runner. Multiple agents on one model do not provide model diversity.
+Multi-model execution needs models supported by the active native agent tool. Multiple agents on one model do not provide model diversity.
 Cloud execution and durable wake-up need concrete equivalents. Missing capability leaves the corresponding gate unresolved.
 
 ## Validation cases
@@ -38,6 +41,11 @@ Cloud execution and durable wake-up need concrete equivalents. Missing capabilit
 | GPT, Claude, and Grok panel with only one family available | Report the gap; obtain a supported selection before claiming the diversity gate |
 | Concurrent feature workers | Assign separate writable worktrees before spawning |
 | Setup on either environment | Confirm model choices before writing portable project settings |
+| Codex and Claude sheets in one project | Each host selects its own sheet and carries it into its children |
+| A global sheet with no project sheet for that host | Select that host's global sheet and preserve its scope on reconfiguration |
+| A project sheet with an invalid environment marker | Report the mismatch; do not silently use global settings |
+| An unmarked legacy common sheet | Keep it for review; do not apply it to another host |
+| Per-model effort plus a role override | Apply the role override to that role, including all its panel entries |
 | An unreadable upstream installation | Request a readable root; do not fabricate upstream prompts |
 | No wake mechanism for an overnight run | Leave a checkpoint; report that continuation is unavailable |
 | Cursor-dependent audit script | Inspect its assumptions before running it; retain evidence gaps in the verdict |

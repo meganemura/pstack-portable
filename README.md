@@ -51,6 +51,21 @@ Invoking the original `poteto-mode` directly bypasses this wrapper.
 
 ## Scope
 
+Model settings are separate for each execution environment:
+
+| Environment | Project file | Global file |
+| --- | --- | --- |
+| Codex | `.pstack/models/codex.md` | `~/.agents/pstack/models/codex.md` |
+| Claude Code | `.pstack/models/claude-code.md` | `~/.agents/pstack/models/claude-code.md` |
+| Cursor | `.pstack/models/cursor.md` | `~/.agents/pstack/models/cursor.md` |
+
+The active environment's project file takes precedence over its global file.
+Run `setup-pstack` through this wrapper inside each environment to configure its native agents.
+For example, ask Claude Code to configure pstack globally, then run setup in Codex to configure Codex independently.
+Existing model choices stay at their current scope unless you request a different scope.
+Model IDs and reasoning effort are separate values. See [the settings contract](skills/pstack-portable/references/settings.md) for effort overrides and migration.
+The wrapper uses native delegation within the active application; it does not launch another agent application or provider CLI.
+
 The adapter handles delegation, settings, model availability, workspace isolation, history, and external skill references.
 It does not supply cross-provider runners, cloud workers, durable scheduling, or hooks.
 It reports missing capabilities instead of claiming equivalent execution.
