@@ -41,7 +41,7 @@ If remote resources are required and unavailable, mark that lane blocked while c
 ## Wake-up and session history
 
 Upstream arms recurring audit ticks with `/loop 1h` and uses `/loop` for autonomous runs. Cursor and Claude Code expose a native `/loop`. Codex needs a verified native equivalent.
-In Claude Code, a looped prompt runs only while its session stays open. Watcher subagents that wake the parent need a native completion notification.
+In Claude Code, a looped prompt runs only while its session stays open, and a recurring loop expires after seven days. Re-arm the tick for a longer program. Watcher subagents that wake the parent need a native completion notification.
 Use a native wake mechanism only after confirming it can resume the agent at the required time or event.
 A sleeping shell alone does not establish a durable wake mechanism.
 Without one, finish the current bounded work and leave a resumable checkpoint. Report unattended continuation as unavailable.
