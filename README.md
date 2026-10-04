@@ -7,7 +7,7 @@ The wrapper skill is `poteto-mode-portable`. Invoke it as `/poteto-mode-portable
 ## Use
 
 For local checkouts, follow [Install from local checkouts](docs/install-local.md).
-That profile registers 28 compatible upstream skills and this wrapper for Claude Code, Cursor, and Codex.
+That profile registers 31 compatible upstream skills and this wrapper for Claude Code, Cursor, and Codex.
 The full upstream checkout supplies the remaining workflows through the wrapper.
 The following remote installation is an alternative that registers every upstream skill.
 The skills CLI documents installation as `npx skills add <source>` in its [CLI reference](https://www.skills.sh/docs/cli).

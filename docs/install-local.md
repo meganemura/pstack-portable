@@ -5,10 +5,12 @@ Keep the full upstream checkout readable for workflows that require execution tr
 
 ## Select the upstream skills
 
-This profile installs 28 skills from upstream pstack 0.15.5:
+This profile installs 31 skills from upstream pstack 0.15.9:
 
-- The 23 `principle-*` skills provide engineering rules.
+- The 24 `principle-*` skills provide engineering rules.
 - `tdd` provides the focused regression-test workflow.
+- `benchmark-checklist` vets a measured performance number before a report or a decision.
+- `correct` turns repeated agent mistakes into checks that the repository enforces.
 - `unslop`, `bro`, and `technical-writing` provide writing guidance. Technical writing references unslop.
 - `typescript-best-practices` provides TypeScript guidance.
 
@@ -44,6 +46,7 @@ DISABLE_TELEMETRY=1 skills add "$pstack_source" -g -a claude-code cursor codex -
   principle-encode-lessons-in-structure \
   principle-exhaust-the-design-space \
   principle-experience-first \
+  principle-explain-the-number \
   principle-fix-root-causes \
   principle-foundational-thinking \
   principle-guard-the-context-window \
@@ -61,7 +64,8 @@ DISABLE_TELEMETRY=1 skills add "$pstack_source" -g -a claude-code cursor codex -
   principle-subtract-before-you-add \
   principle-test-behavior-not-implementation \
   principle-type-system-discipline \
-  tdd unslop bro typescript-best-practices technical-writing -y
+  tdd benchmark-checklist correct \
+  unslop bro typescript-best-practices technical-writing -y
 
 portable_source=/absolute/path/to/meganemura/pstack-portable
 DISABLE_TELEMETRY=1 skills add "$portable_source" -g -a claude-code cursor codex -s poteto-mode-portable -y
@@ -94,7 +98,7 @@ This root also supplies the original agent definitions, so this profile does not
 skills list -g -a claude-code cursor codex
 ```
 
-Check all 28 selected skills and `poteto-mode-portable` at the actual destination paths.
+Check all 31 selected skills and `poteto-mode-portable` at the actual destination paths.
 Compare installed files with their selected source folders, including references and scripts.
 Verify each installed upstream skill also retains `LICENSE-pstack` with the original license text.
 Verify that the selected upstream root is readable.
