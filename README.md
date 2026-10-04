@@ -2,6 +2,7 @@
 
 A small execution adapter for upstream [pstack](https://github.com/cursor/plugins/tree/main/pstack), for Claude Code, Codex, and Cursor.
 Upstream owns the workflows. This package keeps one wrapper skill and environment-specific translations.
+The wrapper skill is `poteto-mode-portable`. Invoke it as `/poteto-mode-portable` where you would invoke upstream `/poteto-mode`.
 
 ## Use
 
@@ -17,7 +18,7 @@ npx skills add https://github.com/cursor/plugins/tree/main/pstack
 npx skills add meganemura/pstack-portable
 ```
 
-Choose all upstream pstack skills from the first source, and `pstack-portable` from the second.
+Choose all upstream pstack skills from the first source, and `poteto-mode-portable` from the second.
 Select Claude Code, Codex, and Cursor as installation targets through your installer's supported options.
 Keep each installed skill's resources with its `SKILL.md`.
 The installer manages the destination copies or links. Reinstall after editing the source to update installed content.
@@ -32,15 +33,15 @@ This file stays on the user's machine. It does not belong in this repository.
 You can also try it without installation by asking the agent to read the wrapper at its absolute path.
 
 ```text
-Read pstack-portable/skills/pstack-portable/SKILL.md and use it to investigate this bug.
+Read pstack-portable/skills/poteto-mode-portable/SKILL.md and use it to investigate this bug.
 The upstream pstack root is ./pstack.
 ```
 
 After skill discovery, ask either environment:
 
 ```text
-Use pstack-portable to review this diff with upstream interrogate.
-Use pstack-portable to configure pstack for this project.
+Use poteto-mode-portable to review this diff with upstream interrogate.
+Use poteto-mode-portable to configure pstack for this project.
 ```
 
 The wrapper resolves individual installed upstream skills; it does not require a common repository root.
@@ -51,7 +52,7 @@ Invoking the original `poteto-mode` directly bypasses this wrapper.
 
 ## Scope
 
-Upstream executable resources use [script preflight and explicit adapters](skills/pstack-portable/references/executables.md).
+Upstream executable resources use [script preflight and explicit adapters](skills/poteto-mode-portable/references/executables.md).
 The wrapper provides a Git-only worktree audit, blocks unknown or changed scripts, and checks bootstrap prerequisites before execution.
 The non-Cursor plan-checker gate remains unresolved because its required program markers are Cursor-specific.
 Hook and Cursor Automations registration are separate from skill installation; this wrapper does not install them.
@@ -68,7 +69,7 @@ The active environment's project file takes precedence over its global file.
 Run `setup-pstack` through this wrapper inside each environment to configure its native agents.
 For example, ask Claude Code to configure pstack globally, then run setup in Codex to configure Codex independently.
 Existing model choices stay at their current scope unless you request a different scope.
-Model IDs and reasoning effort are separate values. See [the settings contract](skills/pstack-portable/references/settings.md) for effort overrides and migration.
+Model IDs and reasoning effort are separate values. See [the settings contract](skills/poteto-mode-portable/references/settings.md) for effort overrides and migration.
 The wrapper uses native delegation within the active application; it does not launch another agent application or provider CLI.
 
 The adapter handles delegation, settings, model availability, workspace isolation, history, and external skill references.

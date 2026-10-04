@@ -5,6 +5,8 @@
 Keep upstream pstack unchanged. Load one portable entry skill before reading upstream workflows.
 Use separate Claude Code, Codex, and Cursor references for tool differences, plus one shared capability contract.
 Distinct skill names preserve an explicit choice between original and adapted execution.
+The entry skill is `poteto-mode-portable`. The name starts with the upstream entry name, so `/poteto-mode` users find the adapted entry next to it.
+The repository keeps the name `pstack-portable` because its translations cover every pstack workflow.
 
 The entry skill resolves an installed skill map and passes that map and the adapter contract to every child.
 This prevents nested workflows from returning to Cursor tool parameters after the first translation.

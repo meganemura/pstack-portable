@@ -1,10 +1,10 @@
 ---
-name: pstack-portable
+name: poteto-mode-portable
 license: MIT
-description: Run upstream pstack workflows in Claude Code, Codex, or Cursor through a small compatibility layer. Use for portable pstack across these environments.
+description: Run upstream pstack workflows in Claude Code, Codex, or Cursor through a small compatibility layer. Use as /poteto-mode-portable in place of /poteto-mode, or for other pstack workflows in these environments.
 ---
 
-# Portable pstack
+# Portable poteto mode
 
 This skill adapts execution mechanics. Upstream pstack owns the engineering principles, playbooks, review criteria, and prompts.
 Install upstream pstack skills and this wrapper with the skills installer. This wrapper does not supply upstream workflows.
@@ -39,7 +39,7 @@ The parent checks actual changes and evidence before reporting results. Same-mod
 
 ## Direct requests
 
-For example, “Use pstack-portable to interrogate this diff” loads upstream `interrogate`, while retaining this execution contract.
-“Use pstack-portable to configure pstack” loads upstream `setup-pstack` with the settings translation in `capabilities.md`.
+For example, “Use poteto-mode-portable to interrogate this diff” loads upstream `interrogate`, while retaining this execution contract.
+“Use poteto-mode-portable to configure pstack” loads upstream `setup-pstack` with the settings translation in `capabilities.md`.
 For ordinary tasks, enter upstream `poteto-mode`. This wrapper does not install hooks or change routing for unrelated sessions.
 Run setup in the environment whose native agents will perform the work. This wrapper does not launch another agent application or provider CLI.

@@ -13,7 +13,7 @@ The executable compatibility snapshot uses pstack 0.15.5 at Cursor repository co
 Source: [cursor/plugins/pstack](https://github.com/cursor/plugins/tree/7022c81efb48d8b5eb15498ce6043a3bd74b694c/pstack).
 The hash manifest records the exact source files checked by script preflight.
 
-The installable skill includes its own license and an [upstream attribution notice](skills/pstack-portable/references/attribution.md).
+The installable skill includes its own license and an [upstream attribution notice](skills/poteto-mode-portable/references/attribution.md).
 Keep those files with the skill when copying or distributing it independently of this repository.
 Runtime-loaded upstream resources retain their original licensing. Preserve their notices if you copy or redistribute them.
 Third-party packages prepared for upstream tools retain their own licenses; wrapper licensing does not replace those notices.

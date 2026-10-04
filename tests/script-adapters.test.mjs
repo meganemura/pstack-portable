@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const scripts = resolve(root, 'skills/pstack-portable/scripts');
+const scripts = resolve(root, 'skills/poteto-mode-portable/scripts');
 const source = process.env.PSTACK_UPSTREAM_ROOT;
 function run(command, args) {
   const result = spawnSync(command, args, { encoding: 'utf8', timeout: 15000 });

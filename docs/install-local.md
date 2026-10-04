@@ -14,7 +14,7 @@ This profile installs 28 skills from upstream pstack 0.15.5:
 
 These selected files describe engineering or writing practices without prescribing Cursor tools.
 Workflows such as `poteto-mode`, `setup-pstack`, `arena`, `swarm`, `interrogate`, `how`, and `why` remain readable in the checkout.
-Use them through `pstack-portable`, which loads the execution adapter before their instructions.
+Use them through `poteto-mode-portable`, which loads the execution adapter before their instructions.
 Do not use `--skill '*'` for this profile. New upstream skills need review before direct registration.
 
 ## Check overwrites before installation
@@ -64,7 +64,7 @@ DISABLE_TELEMETRY=1 skills add "$pstack_source" -g -a claude-code cursor codex -
   tdd unslop bro typescript-best-practices technical-writing -y
 
 portable_source=/absolute/path/to/meganemura/pstack-portable
-DISABLE_TELEMETRY=1 skills add "$portable_source" -g -a claude-code cursor codex -s pstack-portable -y
+DISABLE_TELEMETRY=1 skills add "$portable_source" -g -a claude-code cursor codex -s poteto-mode-portable -y
 ```
 
 The installer manages destination copies and agent links. Local source changes require reinstallation.
@@ -94,16 +94,16 @@ This root also supplies the original agent definitions, so this profile does not
 skills list -g -a claude-code cursor codex
 ```
 
-Check all 28 selected skills and `pstack-portable` at the actual destination paths.
+Check all 28 selected skills and `poteto-mode-portable` at the actual destination paths.
 Compare installed files with their selected source folders, including references and scripts.
 Verify each installed upstream skill also retains `LICENSE-pstack` with the original license text.
 Verify that the selected upstream root is readable.
 Skill discovery occurs when the application refreshes its catalog; use a new session if the running session retains its old catalog.
 
 ```text
-Use pstack-portable to fix this bug.
-Use pstack-portable to interrogate this diff.
-Use pstack-portable to configure pstack.
+Use poteto-mode-portable to fix this bug.
+Use poteto-mode-portable to interrogate this diff.
+Use poteto-mode-portable to configure pstack.
 ```
 
 Directly installed practices can also be invoked by name. Cursor-dependent workflows enter through the wrapper.
