@@ -12,6 +12,7 @@ Use the tools exposed in this Codex session as the authority for names, paramete
 | Wait or cancel | Native wait or interruption tool, when available |
 | `AskQuestion` | The exposed user-input tool, or a concise question when no tool is available |
 | Todo list | The exposed planning tool, or a maintained Markdown checklist |
+| `/loop 1h` and other `/loop` intervals | A native recurring wake only after you confirm it in this session; otherwise the wake rule in `capabilities.md` |
 
 Respect session delegation restrictions and concurrency limits. Queue work when slots are full.
 When the tool supports model or effort overrides, use only confirmed choices and compatible context-fork settings.

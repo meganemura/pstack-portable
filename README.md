@@ -54,7 +54,7 @@ Invoking the original `poteto-mode` directly bypasses this wrapper.
 
 Upstream executable resources use [script preflight and explicit adapters](skills/poteto-mode-portable/references/executables.md).
 The wrapper provides a Git-only worktree audit, blocks unknown or changed scripts, and checks bootstrap prerequisites before execution.
-The non-Cursor plan-checker gate remains unresolved because its required program markers are Cursor-specific.
+The plan checker runs in Cursor and Claude Code. In Codex its gate remains unresolved, because the checked plan arms a `/loop 1h` tick that Codex has no verified command for.
 Hook and Cursor Automations registration are separate from skill installation; this wrapper does not install them.
 
 Model settings are separate for each execution environment:

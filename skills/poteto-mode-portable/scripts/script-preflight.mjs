@@ -37,8 +37,9 @@ function inspect() {
     return { status: 'ADAPTER', command: ['node', resolve(here, 'worktree-audit.mjs'), '<repository>'], reason: 'Use Git-only evidence; Cursor chat recency is unavailable and cleanup approval stays unresolved.' };
   }
   if (script === `${prefix}check-plan.mjs`) {
-    if (environment !== "cursor") return { status: "BLOCKED", workflow: "multi-phase-plan", reason: "The upstream multi-phase plan checker requires Cursor program markers. This is not a general Feature gate. For a selected multi-phase-plan workflow, review shared criteria manually and report that automated gate unresolved." };
-    return { status: 'READY', command: ['node', resolve(root, script), '<plan.md>'] };
+    // The checker requires the program to arm `/loop 1h`. Cursor and Claude Code expose a native `/loop`; Codex has no verified equivalent.
+    if (environment === 'codex') return { status: 'BLOCKED', workflow: 'multi-phase-plan', reason: 'The upstream multi-phase plan checker requires a `/loop 1h` audit tick, and Codex has no verified recurring loop command. This is not a general Feature gate. For a selected multi-phase-plan workflow, review shared criteria manually and report that automated gate unresolved.' };
+    return { status: 'READY', command: ['node', resolve(root, script), '<plan.md>'], requirements: ['A passing check proves plan structure only. Arm the `/loop 1h` tick in a session that stays open.', 'Outside a repository that carries pstack on trunk, report the `git show origin/main:` marker as a translation mismatch; see capabilities.md.'] };
   }
   if (script === 'skills/show-me-your-work/scripts/log.sh') {
     return available('bash') ? { status: 'READY', command: ['bash', resolve(root, script), '<six log arguments>'] } : { status: 'BLOCKED', reason: 'Bash is unavailable.' };

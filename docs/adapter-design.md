@@ -58,6 +58,9 @@ Cloud execution and durable wake-up need concrete equivalents. Missing capabilit
 | Per-model effort plus a role override | Apply the role override to that role, including all its panel entries |
 | An unreadable upstream installation | Request a readable root; do not fabricate upstream prompts |
 | No wake mechanism for an overnight run | Leave a checkpoint; report that continuation is unavailable |
+| An autopilot audit tick in Claude Code | Arm the native `/loop 1h` with the tick prompt; keep the session open |
+| A multi-phase plan in Codex | Review the plan shape manually; report the plan checker and the hourly tick unresolved |
+| A run without a built-in PR tool | Use the forge CLI path that upstream names for that case |
 | Cursor-dependent audit script | Inspect its assumptions before running it; retain evidence gaps in the verdict |
 
 Initial validation checks local file links, frontmatter, upstream resolution, and the written contract against these cases.

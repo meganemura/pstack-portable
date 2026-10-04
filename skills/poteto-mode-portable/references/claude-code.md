@@ -11,6 +11,7 @@ Use the tools exposed in this Claude Code session as the authority for names, pa
 | Resume, wait, or cancel | The supported native child lifecycle tools |
 | `AskQuestion` | The exposed question tool, commonly `AskUserQuestion`, or a concise question |
 | Todo list | The exposed task-list tool, or a maintained Markdown checklist |
+| `/loop 1h` and other `/loop` intervals | The native `/loop` command with the same interval and prompt |
 
 Children receive the delegation contract explicitly. Do not assume a parent-loaded skill is available in child context.
 Use a named review agent only when it is installed and its prompt is compatible with the contract.

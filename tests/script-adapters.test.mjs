@@ -71,6 +71,7 @@ test('script preflight rejects unsupported execution and changed upstream', { sk
     assert.equal(preflight(fixture, 'skills/poteto-mode/scripts/worktree-audit.sh').status, 'ADAPTER');
     assert.equal(preflight(fixture, 'skills/poteto-mode/scripts/check-plan.mjs').exit, 2);
     assert.equal(preflight(fixture, 'skills/poteto-mode/scripts/check-plan.mjs', 'cursor').status, 'READY');
+    assert.equal(preflight(fixture, 'skills/poteto-mode/scripts/check-plan.mjs', 'claude-code').status, 'READY');
     assert.equal(preflight(fixture, 'skills/poteto-mode/scripts/orch/orch.ts').exit, 2);
     assert.equal(preflight(fixture, '../../unknown.sh').exit, 2);
     writeFileSync(resolve(fixture, 'skills/poteto-mode/scripts/bootstrap.ts'), 'changed');
