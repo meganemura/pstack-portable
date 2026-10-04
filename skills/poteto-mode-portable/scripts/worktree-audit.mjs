@@ -19,16 +19,32 @@ for (const field of listing.output.split('\0')) {
   else if (record && field === 'prunable') record.prunable = true;
 }
 const baseExists = git(repository, ['rev-parse', '--verify', `${base}^{commit}`]).ok;
+// Split status the way the upstream audit does: tracked edits are wip that blocks cleanup; untracked files are scratch the user must see named.
+function changes(output) {
+  const tracked = [];
+  const untracked = [];
+  const fields = output.split('\0');
+  for (let at = 0; at < fields.length; at++) {
+    const entry = fields[at];
+    if (!entry) continue;
+    if (entry.startsWith('?? ')) untracked.push(entry.slice(3));
+    else tracked.push(entry.slice(3));
+    if (/^[RC]/.test(entry)) at++;
+  }
+  return { tracked, untracked };
+}
 const worktrees = records.map(record => {
   const status = git(record.path, ['status', '--porcelain', '-z']);
+  const found = status.ok ? changes(status.output) : null;
   const merged = baseExists && record.head ? git(repository, ['merge-base', '--is-ancestor', record.head, base]) : null;
   return {
     ...record,
-    workingTree: !status.ok ? 'unknown' : status.output ? 'dirty' : 'clean',
+    workingTree: !found ? 'unknown' : found.tracked.length ? `wip:${found.tracked.length}` : found.untracked.length ? `scratch:${found.untracked.length}` : 'clean',
+    untrackedFiles: found ? found.untracked : [],
     mergedByAncestry: !merged ? 'unknown' : merged.ok ? 'yes' : 'not-proven',
     chatRecency: 'unknown',
     pullRequestState: 'not-queried',
-    disposition: status.ok && status.output ? 'hold-dirty' : 'needs-review',
+    disposition: !found ? 'needs-review' : found.tracked.length ? 'hold-wip' : 'needs-review',
   };
 });
 console.log(JSON.stringify({ repository, base, baseExists, fetchPerformed: false, deletionAuthorized: false, worktrees }, null, 2));

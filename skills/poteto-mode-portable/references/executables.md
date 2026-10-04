@@ -38,7 +38,9 @@ Report an unsupported script as an unmet task gate only when the selected workfl
 
 The alternate worktree audit does not fetch, query PRs, read chat history, prune, or delete.
 Ancestry against a local base ref does not prove squash-merge state. Unknown chat and PR evidence stays unknown.
-Every worktree requires review before cleanup; `needs-review` is not a safe-to-delete verdict.
+It reports `wip:N` for tracked edits and `scratch:N` for untracked files, as upstream does, and lists the untracked file names.
+`hold-wip` pauses cleanup under playbook step 4. Every other worktree requires review; `needs-review` is not a safe-to-delete verdict.
+Worktree-cleanup step 6 names Cursor application caches. Outside Cursor, clear them only when the user names Cursor as a cleanup target.
 The adapter does not replace missing history with invented timestamps.
 
 ## Hooks

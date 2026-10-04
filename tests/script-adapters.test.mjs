@@ -23,7 +23,7 @@ function preflight(upstream, script, environment = 'codex') {
   const result = run(process.execPath, [resolve(scripts, 'script-preflight.mjs'), '--upstream-root', upstream, '--environment', environment, '--script', script]);
   return { exit: result.status, ...JSON.parse(result.stdout) };
 }
-test('worktree audit preserves unknown evidence and dirty paths with spaces', () => {
+test('worktree audit separates wip from scratch and preserves unknown evidence', () => {
   const fixture = mkdtempSync(resolve(tmpdir(), 'pstack-worktree-test-'));
   try {
     const repo = resolve(fixture, 'repository with spaces');
@@ -33,6 +33,13 @@ test('worktree audit preserves unknown evidence and dirty paths with spaces', ()
     const child = resolve(fixture, 'child with spaces');
     git(repo, 'worktree', 'add', '-b', 'child', child);
     writeFileSync(resolve(child, 'untracked.txt'), 'preserve me');
+    const edited = resolve(fixture, 'edited with spaces');
+    writeFileSync(resolve(repo, 'tracked.txt'), 'base');
+    git(repo, 'add', 'tracked.txt');
+    git(repo, '-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', '-c', 'commit.gpgsign=false', 'commit', '-m', 'Track');
+    git(repo, 'worktree', 'add', '-b', 'edited', edited);
+    writeFileSync(resolve(edited, 'tracked.txt'), 'changed');
+    writeFileSync(resolve(edited, 'scratch.txt'), 'scratch');
     const result = run(process.execPath, [resolve(scripts, 'worktree-audit.mjs'), repo, 'missing-base']);
     assert.equal(result.status, 0, result.stderr);
     const audit = JSON.parse(result.stdout);
@@ -40,8 +47,13 @@ test('worktree audit preserves unknown evidence and dirty paths with spaces', ()
     assert.equal(audit.fetchPerformed, false);
     assert.equal(audit.baseExists, false);
     const row = audit.worktrees.find(item => item.path === realpathSync(child));
-    assert.equal(row.workingTree, 'dirty');
-    assert.equal(row.disposition, 'hold-dirty');
+    assert.equal(row.workingTree, 'scratch:1');
+    assert.deepEqual(row.untrackedFiles, ['untracked.txt']);
+    assert.equal(row.disposition, 'needs-review');
+    const wip = audit.worktrees.find(item => item.path === realpathSync(edited));
+    assert.equal(wip.workingTree, 'wip:1');
+    assert.deepEqual(wip.untrackedFiles, ['scratch.txt']);
+    assert.equal(wip.disposition, 'hold-wip');
     assert.equal(row.chatRecency, 'unknown');
     assert.equal(row.mergedByAncestry, 'unknown');
     assert.equal(readFileSync(resolve(child, 'untracked.txt'), 'utf8'), 'preserve me');
