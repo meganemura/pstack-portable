@@ -14,7 +14,7 @@ Use the tools exposed in this Codex session as the authority for names, paramete
 | Todo list | The exposed planning tool, or a maintained Markdown checklist |
 | `/loop 1h` and other `/loop` intervals | A native recurring wake only after you confirm it in this session; otherwise the wake rule in `capabilities.md` |
 
-Respect session delegation restrictions and concurrency limits. Queue work when slots are full.
+Respect session delegation restrictions and concurrency limits. Apply the native agent capacity contract in `capabilities.md` before fan-out and nested dispatch.
 When the tool supports model or effort overrides, use only confirmed choices and compatible context-fork settings.
 Do not assume a full-history fork accepts model overrides. Include the complete contract in the child brief even when history is inherited.
 If a model cannot run through native delegation, follow the model capability rule in `capabilities.md`.

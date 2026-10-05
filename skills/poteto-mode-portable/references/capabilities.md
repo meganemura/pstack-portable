@@ -28,6 +28,40 @@ Upstream `readonly: true` means the child must not write. Use a native agent typ
 Upstream `readonly: false` with "agent mode" keeps MCP access for lookups, as in `why` and `reflect`. Choose a child type that keeps the session's MCP tools, and keep any no-write limit in the brief.
 A read-only native type can also drop MCP tools. Check its tool list before you use it for a child that needs MCP.
 
+## Native agent capacity
+
+Before fan-out, inspect the native capacity and the status of the whole agent tree.
+Count the root, active workers, and waiting parents when the host counts them toward its limit.
+Budget each lane's required descendants before admitting that lane. Carry the reservation and dispatch owner in every child brief.
+A waiting parent does not create a free slot. Do not fill every slot with parents that require another child to finish.
+
+One coordinator owns admission for the shared tree. Children request reserved dispatch through that coordinator instead of racing for spare slots.
+Recheck native status immediately before each spawn. Reservations are scheduling guidance, not a native lock.
+Use the native release or close operation only when available and after preserving the child's result.
+Do not assume completion, interruption, or an idle status releases a thread slot. Confirm the host's capacity behavior.
+If capacity cannot be recovered, checkpoint and report the unresolved gate. Do not repeatedly retry the same spawn.
+
+Complete shared `how` grounding before candidate fan-out when candidates ask the same question against the same immutable source.
+Run upstream's explorers and independent explainer with their required briefs, models, and evidence.
+Serialize explorers when needed, then pass every explorer's findings to the independent explainer.
+Pass the complete grounding result, question, revision, and remaining gaps to each candidate.
+This satisfies only the shared question. Candidate-specific questions still require their own independent grounding.
+
+With four total slots, the root uses one. A lane with one required child needs two more slots.
+Admit only one such lane while one diagnostic worker remains active.
+For example: root + diagnostic + candidate A + A's explainer uses four slots.
+Preserve and release that lane's completed threads before admitting candidate B and its explainer.
+If an explainer requires explorers, finish and release the explorers before its explainer phase.
+Schedule deeper trees by their full phase requirements rather than applying the one-child example blindly.
+Alternatively, finish shared grounding before admitting root + diagnostic + candidate A + candidate B, provided those candidates require no further child.
+
+After a capacity error, preserve the failed operation and native error when available.
+Pause additional admission, inspect status, and serialize the remaining required stages.
+A worker's direct tracing is useful provisional evidence. It does not complete an independent explainer gate.
+Keep that gate unresolved until the required independent stage runs.
+A later judge counts only if its brief and evidence also fulfill the missing stage's question and upstream contract.
+Check that no capacity-dependent parent waits for a child whose slot is held by another waiting parent.
+
 ## Cloud workers and workspace isolation
 
 `environment: cloud` and `cloud_base_branch` describe Cursor cloud execution.

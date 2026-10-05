@@ -65,3 +65,18 @@ Cloud execution and durable wake-up need concrete equivalents. Missing capabilit
 
 Initial validation checks local file links, frontmatter, upstream resolution, and the written contract against these cases.
 Actual end-to-end behavior in both applications requires supervised usage. Static checks do not establish runtime portability.
+
+## Capacity scheduling evidence
+
+Native capacity applies to the complete agent tree. Waiting parents can occupy slots needed by their required children.
+The adapter now reserves descendant capacity before fan-out and assigns admission to one coordinator.
+Shared independent grounding precedes candidate fan-out only when the question and immutable source match.
+Candidate-specific grounding retains its independent stage. Direct tracing leaves that gate unresolved.
+
+A reported four-slot run filled the root and three worker slots before a candidate requested its explainer.
+The report quotes the candidate's account; the original native error was unavailable.
+This supports a capacity scheduling gap, while the exact native failure remains unverified.
+The four-slot schedule reserves root, diagnostic, candidate, and explainer slots, then releases the candidate lane before the next candidate.
+A native tool must confirm release; the adapter does not equate completion or interruption with release.
+The shared-grounding schedule completes its independent stages before admitting two candidates without further required children.
+Both schedules stay within four slots. Native launch and release behavior still require host execution evidence.
