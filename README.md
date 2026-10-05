@@ -11,7 +11,7 @@ That profile registers 31 compatible upstream skills and this wrapper for Claude
 The full upstream checkout supplies the remaining workflows through the wrapper.
 The following remote installation is an alternative that registers every upstream skill.
 The skills CLI documents installation as `npx skills add <source>` in its [CLI reference](https://www.skills.sh/docs/cli).
-Install the wrapper from `meganemura/pstack-portable` after authenticating Git access to this private repository.
+Install the wrapper from `meganemura/pstack-portable`.
 
 ```sh
 npx skills add https://github.com/cursor/plugins/tree/main/pstack
