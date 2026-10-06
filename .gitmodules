@@ -1,0 +1,3 @@
+[submodule "upstream/plugins"]
+	path = upstream/plugins
+	url = https://github.com/cursor/plugins

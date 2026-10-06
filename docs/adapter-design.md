@@ -16,6 +16,9 @@ Individual skill copies retain local resources. Missing repository-level prompts
 This avoids bundling prompt copies that would need separate synchronization with upstream.
 An alternative registers only the wrapper and reads upstream from a local checkout.
 This avoids name collisions and direct activation of unadapted upstream skills.
+The repository pins upstream as the submodule `upstream/plugins` at the fingerprinted commit.
+The manifest, the review record, and the upstream commit then move in one wrapper commit, and each tag names its upstream. A test fails when the pin and the manifest disagree.
+A wrapper linked from a clone reads the submodule directly. An installed copy still needs the local source-location file.
 The local source-location file records that checkout outside the wrapper repository.
 The local installation profile registers 24 principles and seven compatible practice skills alongside the wrapper.
 Cursor-dependent workflows stay in the selected checkout and execute through the adapter.

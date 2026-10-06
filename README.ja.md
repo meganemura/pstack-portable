@@ -34,7 +34,7 @@ upstream の skill 名が既存の skill とぶつかる場合は、この wrapp
 
 ```text
 Read pstack-portable/skills/poteto-mode-portable/SKILL.md and use it to investigate this bug.
-The upstream pstack root is ./pstack.
+The upstream pstack root is pstack-portable/upstream/plugins/pstack.
 ```
 
 skill が認識されたら、どちらの環境でも次のように頼めます。
@@ -45,7 +45,7 @@ Use poteto-mode-portable to configure pstack for this project.
 ```
 
 wrapper は、導入された upstream の skill を 1 つずつ解決します。共通のリポジトリのルートは要りません。
-このチェックアウトの隣にある `pstack` のツリーも解決できます。
+submodule を初期化したクローンは、wrapper が fingerprint を持つコミットの upstream を `upstream/plugins` に持ちます。そのクローンにリンクした wrapper は、手元のファイルなしでそれを使います。
 installer が省いたリポジトリ単位のエージェントのプロンプトは、必要になったときに、記録した upstream のコミットから取り戻します。
 取得元のリビジョンやネットワークが使えないと、その部分の作業は未解決のまま残ることがあります。
 元の `poteto-mode` を直接呼ぶと、この wrapper を通りません。

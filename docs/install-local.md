@@ -35,10 +35,12 @@ The `-y` flag below skips installer prompts and can replace an existing skill wi
 
 ## Install the selected profile
 
-Replace the source paths with your local checkout paths. Run this command in a POSIX shell:
+This repository pins upstream pstack at `upstream/plugins`, at the commit that the wrapper fingerprints.
+Run `git submodule update --init` in your clone, then use `<clone>/upstream/plugins/pstack` as `pstack_source`.
+Replace the source paths with your local paths. Run this command in a POSIX shell:
 
 ```sh
-pstack_source=/absolute/path/to/cursor/plugins/pstack
+pstack_source=/absolute/path/to/pstack-portable/upstream/plugins/pstack
 DISABLE_TELEMETRY=1 skills add "$pstack_source" -g -a claude-code cursor codex -s \
   principle-attack-the-premise \
   principle-boundary-discipline \
@@ -82,11 +84,12 @@ Its workflows can read and execute those resources through the wrapper without r
 
 ## Record the upstream checkout
 
-Save its absolute path in `~/.agents/pstack-upstream.json`. Keep this machine-specific file outside Git.
+A wrapper linked from the clone finds the pinned submodule by itself. An installed copy of the wrapper cannot find it.
+For a copy, save the absolute path of `<clone>/upstream/plugins/pstack` in `~/.agents/pstack-upstream.json`. Keep this machine-specific file outside Git.
 If the file already exists, update its `root` value while preserving other fields.
 
 ```json
-{"root": "/absolute/path/to/cursor/plugins/pstack"}
+{"root": "/absolute/path/to/pstack-portable/upstream/plugins/pstack"}
 ```
 
 The wrapper checks that the root contains `skills/poteto-mode/SKILL.md`.

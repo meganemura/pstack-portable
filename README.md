@@ -34,7 +34,7 @@ You can also try it without installation by asking the agent to read the wrapper
 
 ```text
 Read pstack-portable/skills/poteto-mode-portable/SKILL.md and use it to investigate this bug.
-The upstream pstack root is ./pstack.
+The upstream pstack root is pstack-portable/upstream/plugins/pstack.
 ```
 
 After skill discovery, ask either environment:
@@ -45,7 +45,7 @@ Use poteto-mode-portable to configure pstack for this project.
 ```
 
 The wrapper resolves individual installed upstream skills; it does not require a common repository root.
-It can also resolve the sibling `pstack` tree in this checkout.
+A clone with initialized submodules carries upstream in `upstream/plugins`, at the commit the wrapper fingerprints. A wrapper linked from that clone uses it without the local file.
 Repository-level agent prompts omitted by the installer are recovered from the recorded upstream commit when needed.
 An unavailable source revision or network access can leave those specific lanes unresolved.
 Invoking the original `poteto-mode` directly bypasses this wrapper.

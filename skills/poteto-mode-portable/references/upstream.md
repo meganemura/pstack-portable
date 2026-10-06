@@ -7,12 +7,13 @@ Skills installers may copy or symlink individual skill folders without copying r
 
 Prefer a user-supplied upstream location, then the `root` path in `~/.agents/pstack-upstream.json` when that file exists.
 This local file is source-location data. Validate that the root contains `skills/poteto-mode/SKILL.md` before using it.
+Next, use the wrapper repository's pinned submodule at `../../upstream/plugins/pstack`, relative to this skill's real directory.
+It exists when the wrapper links to a clone with initialized submodules. Its commit matches the executable fingerprints.
 Otherwise use the active session's exposed skill locations.
 When a catalog is incomplete, inspect the active project's and user's configured skill directories for pstack skill folders.
 Use targeted discovery of `poteto-mode/SKILL.md`, `interrogate/SKILL.md`, and required `principle-*/SKILL.md` files.
 Common roots include `.agents/skills` and `.claude/skills`; use the actual environment configuration rather than assuming those paths.
 Resolve symlinks before looking for adjacent resources.
-Use this checkout's sibling `../../../pstack` only as a fallback, relative to the wrapper's `SKILL.md`.
 
 Create a map from upstream skill folder names to absolute `SKILL.md` paths.
 Frontmatter display names can differ from folder names, such as `Poteto Mode` and `poteto-mode`.
@@ -39,7 +40,7 @@ For richer prompts such as Comment Sicko, recover the actual definition; do not 
 
 ## Installation coverage
 
-With a full checkout selected through `pstack-upstream.json`, resolve every routed skill and agent definition from that checkout.
+With a full checkout selected through `pstack-upstream.json` or the pinned submodule, resolve every routed skill and agent definition from that checkout.
 Only the compatible practice profile needs direct registration; the other workflows remain readable dependencies.
 With installed skills alone, the full mode needs all routed upstream skills. Installing only `poteto-mode` does not install them automatically.
 For a narrow workflow, resolve its required skills before execution and report any missing dependency by name.

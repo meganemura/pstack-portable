@@ -1,7 +1,7 @@
 // Verify executable verdicts and conservative worktree evidence using isolated fixtures.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, mkdirSync, copyFileSync, readFileSync, writeFileSync, rmSync, realpathSync } from 'node:fs';
+import { existsSync, mkdtempSync, mkdirSync, copyFileSync, readFileSync, writeFileSync, rmSync, realpathSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -9,12 +9,20 @@ import { spawnSync } from 'node:child_process';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const scripts = resolve(root, 'skills/poteto-mode-portable/scripts');
-const source = process.env.PSTACK_UPSTREAM_ROOT;
+const pinned = resolve(root, 'upstream/plugins/pstack');
+const source = process.env.PSTACK_UPSTREAM_ROOT || (existsSync(resolve(pinned, 'skills/poteto-mode/SKILL.md')) ? pinned : undefined);
 function run(command, args) {
   const result = spawnSync(command, args, { encoding: 'utf8', timeout: 15000 });
   if (result.error) throw result.error;
   return result;
 }
+// The index entry is the pin a commit records, so the check also holds before the submodule is checked out.
+test('pinned upstream matches the executable fingerprints', () => {
+  const entry = run('git', ['-C', root, 'ls-files', '--stage', '--', 'upstream/plugins']).stdout.trim();
+  assert.match(entry, /^160000 [0-9a-f]{40} 0\tupstream\/plugins$/);
+  const manifest = JSON.parse(readFileSync(resolve(scripts, 'upstream-scripts.json'), 'utf8'));
+  assert.equal(entry.split(' ')[1], manifest.commit);
+});
 function git(path, ...args) {
   const result = run('git', ['-C', path, ...args]);
   assert.equal(result.status, 0, result.stderr);
@@ -59,7 +67,7 @@ test('worktree audit separates wip from scratch and preserves unknown evidence',
     assert.equal(readFileSync(resolve(child, 'untracked.txt'), 'utf8'), 'preserve me');
   } finally { rmSync(fixture, { recursive: true, force: true }); }
 });
-test('script preflight rejects unsupported execution and changed upstream', { skip: !source && 'Set PSTACK_UPSTREAM_ROOT to the fingerprinted pstack checkout.' }, () => {
+test('script preflight rejects unsupported execution and changed upstream', { skip: !source && 'Run git submodule update --init, or set PSTACK_UPSTREAM_ROOT.' }, () => {
   const fixture = mkdtempSync(resolve(tmpdir(), 'pstack-preflight-test-'));
   try {
     const manifest = JSON.parse(readFileSync(resolve(scripts, 'upstream-scripts.json'), 'utf8'));
