@@ -28,3 +28,4 @@ Official reference, checked on 2026-10-03:
 
 - [Create custom subagents](https://code.claude.com/docs/en/sub-agents)
 - [Scheduled tasks](https://code.claude.com/docs/en/scheduled-tasks), for `/loop`, checked on 2026-10-04
+- [Skills](https://code.claude.com/docs/en/skills), for `disable-model-invocation`, checked on 2026-10-06

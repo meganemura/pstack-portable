@@ -62,6 +62,9 @@ Cloud execution and durable wake-up need concrete equivalents. Missing capabilit
 | A multi-phase plan in Codex | Review the plan shape manually; report the plan checker and the hourly tick unresolved |
 | A run without a built-in PR tool | Use the forge CLI path that upstream names for that case |
 | Cursor-dependent audit script | Inspect its assumptions before running it; retain evidence gaps in the verdict |
+| A playbook step names a skill with model invocation disabled | Read its `SKILL.md` by path and run the step; if the host blocked it, report it unresolved |
+| Code delegated to a repository-defined agent | Brief carries the contract paths and the quoted Comments rule; the parent runs `no-comments` before review |
+| A user rule asks for module header comments | Write a short header with only what the code cannot show |
 
 Initial validation checks local file links, frontmatter, upstream resolution, and the written contract against these cases.
 Actual end-to-end behavior in both applications requires supervised usage. Static checks do not establish runtime portability.
