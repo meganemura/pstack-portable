@@ -1,4 +1,5 @@
-// Select the upstream pstack root and compare it with the fingerprinted commit. Reads Git state only; never fetches or edits.
+// Select the upstream pstack root and compare it with the fingerprinted commit. Reads files and Git state only; never fetches or edits.
+import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, realpathSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { dirname, resolve } from 'node:path';
@@ -17,6 +18,20 @@ function git(root, ...rest) {
 }
 const manifest = JSON.parse(readFileSync(option('--manifest', resolve(here, 'upstream-scripts.json')), 'utf8'));
 const config = option('--config', resolve(homedir(), '.agents/pstack-upstream.json'));
+const treePath = option('--tree', resolve(here, 'upstream-tree.json'));
+const tree = existsSync(treePath) ? JSON.parse(readFileSync(treePath, 'utf8')) : null;
+
+// Plugin caches and copies drop .git, so compare each pinned file by its Git blob hash. Extra files, such as node_modules, do not count.
+function blob(path) {
+  const content = readFileSync(path);
+  return createHash('sha1').update(`blob ${content.length}\0`).update(content).digest('hex');
+}
+function compareFiles(source, root, why) {
+  if (!tree || tree.commit !== manifest.commit) return { source, root, status: 'UNVERIFIED', reason: `${why} No file list for ${manifest.commit}.` };
+  const changed = Object.entries(tree.files).filter(([path, sha]) => !existsSync(resolve(root, path)) || blob(resolve(root, path)) !== sha).map(([path]) => path);
+  if (changed.length) return { source, root, status: 'MISMATCH', reason: `${changed.length} pinned files are missing or differ, such as ${changed.slice(0, 3).join(', ')}.` };
+  return { source, root, status: 'MATCHED', reason: `${why} All ${Object.keys(tree.files).length} pinned files match.` };
+}
 
 // A tree comparison accepts a later upstream commit that leaves pstack/ unchanged; uncommitted edits still count as drift.
 function inspect(source, path) {
@@ -25,10 +40,10 @@ function inspect(source, path) {
   if (!existsSync(resolve(root, 'skills/poteto-mode/SKILL.md'))) return { source, root, status: 'INVALID', reason: 'No skills/poteto-mode/SKILL.md under this root.' };
   const real = realpathSync(root);
   const prefix = git(real, 'rev-parse', '--show-prefix');
-  if (prefix === null) return { source, root: real, status: 'UNVERIFIED', reason: 'Not a Git checkout; the commit cannot be compared.' };
+  if (prefix === null) return compareFiles(source, real, 'Not a Git checkout.');
   const current = git(real, 'rev-parse', `HEAD:${prefix}`);
   const pinned = git(real, 'rev-parse', `${manifest.commit}:${prefix}`);
-  if (!pinned) return { source, root: real, status: 'UNVERIFIED', reason: `The checkout lacks commit ${manifest.commit}.` };
+  if (!pinned) return compareFiles(source, real, `The checkout lacks commit ${manifest.commit}.`);
   if (current !== pinned) return { source, root: real, status: 'MISMATCH', head: git(real, 'rev-parse', 'HEAD'), reason: `The pstack tree differs from ${manifest.commit}.` };
   if (git(real, 'status', '--porcelain', '--', '.')) return { source, root: real, status: 'MISMATCH', head: git(real, 'rev-parse', 'HEAD'), reason: 'The pstack tree has uncommitted changes.' };
   return { source, root: real, status: 'MATCHED' };

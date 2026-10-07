@@ -31,6 +31,40 @@ function preflight(upstream, script, environment = 'codex') {
   const result = run(process.execPath, [resolve(scripts, 'script-preflight.mjs'), '--upstream-root', upstream, '--environment', environment, '--script', script]);
   return { exit: result.status, ...JSON.parse(result.stdout) };
 }
+test('pinned file list matches the pinned commit', () => {
+  const tree = JSON.parse(readFileSync(resolve(scripts, 'upstream-tree.json'), 'utf8'));
+  const manifest = JSON.parse(readFileSync(resolve(scripts, 'upstream-scripts.json'), 'utf8'));
+  assert.equal(tree.commit, manifest.commit);
+  const listing = run('git', ['-C', resolve(root, 'upstream/plugins'), 'ls-tree', '-r', manifest.commit, 'pstack']);
+  if (listing.status !== 0) return;
+  const files = Object.fromEntries(listing.stdout.trim().split('\n').map(line => {
+    const [meta, path] = line.split('\t');
+    return [path.replace(/^pstack\//, ''), meta.split(' ')[2]];
+  }));
+  assert.deepEqual(tree.files, files);
+});
+test('upstream root verifies a copy without Git by its pinned files', { skip: !existsSync(resolve(pinned, 'skills/poteto-mode/SKILL.md')) && 'Run git submodule update --init.' }, () => {
+  const fixture = mkdtempSync(resolve(tmpdir(), 'pstack-copy-test-'));
+  try {
+    const copy = resolve(fixture, 'plugin cache/pstack');
+    mkdirSync(dirname(copy), { recursive: true });
+    assert.equal(run('cp', ['-R', pinned, copy]).status, 0);
+    rmSync(resolve(copy, '.git'), { force: true });
+    writeFileSync(resolve(copy, 'untracked note.txt'), 'extra files do not count');
+    const select = () => {
+      const result = run(process.execPath, [resolve(scripts, 'upstream-root.mjs'), '--config', resolve(fixture, 'absent.json'), '--submodule', resolve(fixture, 'absent'), '--root', copy]);
+      return { exit: result.status, ...JSON.parse(result.stdout) };
+    };
+    const intact = select();
+    assert.equal(intact.status, 'MATCHED');
+    assert.equal(intact.exit, 0);
+    writeFileSync(resolve(copy, 'skills/poteto-mode/SKILL.md'), 'edited');
+    const edited = select();
+    assert.equal(edited.status, 'MISMATCH');
+    assert.equal(edited.exit, 2);
+    assert.match(edited.candidates[0].reason, /skills\/poteto-mode\/SKILL\.md/);
+  } finally { rmSync(fixture, { recursive: true, force: true }); }
+});
 test('upstream root selection rejects a stale configured checkout', () => {
   const fixture = mkdtempSync(resolve(tmpdir(), 'pstack-root-test-'));
   try {
