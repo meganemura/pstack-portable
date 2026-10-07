@@ -84,6 +84,7 @@ Its workflows can read and execute those resources through the wrapper without r
 
 Link the wrapper so that it reads the pinned submodule and follows each `git pull` without reinstallation.
 Codex and Cursor read `~/.agents/skills`. Claude Code reads `~/.claude/skills`.
+Claude Code follows these links. In Codex and Cursor, confirm that the skill appears after linking. Otherwise use the copy below.
 Check both destinations first. Move an existing `poteto-mode-portable` or `pstack-portable` entry out of the way after you inspect it.
 
 ```sh
