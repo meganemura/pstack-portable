@@ -7,6 +7,8 @@ The wrapper skill is `poteto-mode-portable`. Invoke it as `/poteto-mode-portable
 ## Use
 
 For local checkouts, follow [Install from local checkouts](docs/install-local.md).
+Clone with `git clone --recurse-submodules https://github.com/meganemura/pstack-portable`. After each `git pull`, run `git submodule update --init`, because a plain pull does not fetch `upstream/plugins`.
+The same guide has the steps for linking the wrapper from the clone and for updating after a pull.
 That profile registers 31 compatible upstream skills and this wrapper for Claude Code, Cursor, and Codex.
 The full upstream checkout supplies the remaining workflows through the wrapper.
 The following remote installation is an alternative that registers every upstream skill.

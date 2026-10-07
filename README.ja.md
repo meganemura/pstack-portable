@@ -7,6 +7,8 @@ wrapper skill の名前は `poteto-mode-portable` です。upstream で `/poteto
 ## 使い方
 
 ローカルのチェックアウトから入れる場合は、[Install from local checkouts](docs/install-local.md) に従います。
+`git clone --recurse-submodules https://github.com/meganemura/pstack-portable` で clone します。`git pull` のあとは毎回 `git submodule update --init` を実行します。pull だけでは `upstream/plugins` が取得されないためです。
+同じ手順書に、clone から wrapper をリンクする方法と、pull 後に更新する方法があります。
 このプロファイルは、互換性のある upstream の skill 31 個とこの wrapper を、Claude Code、Cursor、Codex に登録します。
 残りのワークフローは、upstream のチェックアウト全体から wrapper を通して読みます。
 次のリモートからの導入は、upstream の skill をすべて登録する別の方法です。
