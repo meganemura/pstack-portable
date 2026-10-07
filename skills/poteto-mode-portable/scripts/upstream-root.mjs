@@ -51,6 +51,8 @@ const selected = explicit ?? matched ?? usable.find(candidate => candidate.statu
 const notes = [];
 const stale = usable.find(candidate => candidate.source === 'config' && candidate.status === 'MISMATCH');
 if (stale && selected && selected !== stale) notes.push(`${config} points at a different upstream. Remove it or point it at ${selected.root}.`);
+const invalid = candidates.find(candidate => candidate.source === 'request' && candidate.status === 'INVALID');
+if (invalid && selected) notes.push(`The requested root is not a pstack root. Selected ${selected.root} instead.`);
 if (!selected) notes.push('No upstream root found. Initialize the submodule or record a root.');
 else if (selected.status === 'MISMATCH') notes.push('Report the version gap before you follow upstream instructions from this root.');
 

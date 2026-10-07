@@ -70,6 +70,10 @@ test('upstream root selection rejects a stale configured checkout', () => {
     assert.equal(requested.exit, 2);
     assert.equal(requested.selected, realpathSync(resolve(repo, 'pstack')));
 
+    const overridden = select('--submodule', resolve(pinnedTree, 'pstack'), '--root', resolve(fixture, 'absent'));
+    assert.equal(overridden.status, 'MATCHED');
+    assert.match(overridden.notes.join('\n'), /requested root is not a pstack root/);
+
     writeFileSync(resolve(pinnedTree, 'pstack/skills/poteto-mode/SKILL.md'), 'edited');
     assert.equal(select('--submodule', resolve(pinnedTree, 'pstack')).status, 'MISMATCH');
   } finally { rmSync(fixture, { recursive: true, force: true }); }
