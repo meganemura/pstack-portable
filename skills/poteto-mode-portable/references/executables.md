@@ -18,7 +18,8 @@ Use `claude-code` or `cursor` for those hosts. The output is JSON.
 `ADAPTER` supplies an alternate command and its evidence limits.
 `BLOCKED` exits with status 2. Do not execute the original command to bypass that verdict.
 This tool checks file fingerprints and selected runtime prerequisites. It does not run the requested script.
-Changes anywhere in the fingerprinted set require reassessment before updating the manifest. Do not simply regenerate hashes to get a pass.
+Preflight checks the selected entry and its reviewed dependency set. Unrelated entry drift does not block that command.
+Changes in the selected set require reassessment before updating fingerprints or dependency mappings. Do not regenerate hashes to get a pass.
 An unknown script needs an explicit mapping. Test, typecheck, and library files are not ordinary workflow entry points.
 
 | Upstream entry | Handling |

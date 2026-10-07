@@ -82,8 +82,17 @@ test('script preflight rejects unsupported execution and changed upstream', { sk
     assert.equal(preflight(fixture, 'skills/poteto-mode/scripts/check-plan.mjs', 'claude-code').status, 'READY');
     assert.equal(preflight(fixture, 'skills/poteto-mode/scripts/orch/orch.ts').exit, 2);
     assert.equal(preflight(fixture, '../../unknown.sh').exit, 2);
+    const logger = 'skills/show-me-your-work/scripts/log.sh';
+    assert.equal(preflight(fixture, logger).status, 'READY');
+    writeFileSync(resolve(fixture, 'skills/poteto-mode/scripts/check-plan.mjs'), 'changed');
+    assert.equal(preflight(fixture, logger).status, 'READY');
+    assert.match(preflight(fixture, 'skills/poteto-mode/scripts/check-plan.mjs', 'cursor').reason, /Upstream changed/);
     writeFileSync(resolve(fixture, 'skills/poteto-mode/scripts/bootstrap.ts'), 'changed');
-    const changed = preflight(fixture, 'skills/show-me-your-work/scripts/log.sh');
+    assert.equal(preflight(fixture, logger).status, 'READY');
+    assert.match(preflight(fixture, 'skills/poteto-mode/scripts/orch/orch.ts').reason, /Upstream changed:.*bootstrap/);
+    assert.match(preflight(fixture, 'skills/poteto-mode/scripts/watch-pr/watch-pr').reason, /Upstream changed:.*bootstrap/);
+    writeFileSync(resolve(fixture, logger), 'changed');
+    const changed = preflight(fixture, logger);
     assert.equal(changed.exit, 2);
     assert.match(changed.reason, /Upstream changed/);
   } finally { rmSync(fixture, { recursive: true, force: true }); }

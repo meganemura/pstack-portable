@@ -22,8 +22,19 @@ function inspect() {
   const script = option('--script');
   if (!['codex', 'claude-code', 'cursor'].includes(environment)) throw new Error('Unknown environment');
   const manifest = JSON.parse(readFileSync(resolve(here, 'upstream-scripts.json'), 'utf8'));
-  if (!manifest.files.some(file => file.path === script)) return { status: 'BLOCKED', reason: 'Unknown entry point; inspect and add a compatibility mapping first.' };
-  for (const file of manifest.files) {
+  const prefix = 'skills/poteto-mode/scripts/';
+  const runtime = ['bootstrap.ts', 'package.json', 'bun.lock'];
+  const dependencies = {
+    'skills/show-me-your-work/scripts/log.sh': [],
+    [`${prefix}worktree-audit.sh`]: [],
+    [`${prefix}check-plan.mjs`]: [],
+    [`${prefix}orch/orch.ts`]: [...runtime, 'orch/store.ts'].map(path => prefix + path),
+    [`${prefix}watch-pr/watch-pr`]: [...runtime, ...['cli', 'github', 'policy', 'render', 'types'].map(name => `watch-pr/${name}.ts`)].map(path => prefix + path),
+  };
+  if (!Object.hasOwn(dependencies, script)) return { status: 'BLOCKED', reason: 'Unknown or unsupported entry point; inspect and add a compatibility mapping first.' };
+  for (const required of [script, ...dependencies[script]]) {
+    const file = manifest.files.find(file => file.path === required);
+    if (!file) return { status: 'BLOCKED', reason: `Missing compatibility fingerprint: ${required}` };
     const path = resolve(root, file.path);
     if (!existsSync(path)) return { status: 'BLOCKED', reason: `Missing upstream file: ${file.path}` };
     const real = realpathSync(path);
@@ -32,7 +43,6 @@ function inspect() {
     if (digest(real) !== file.sha256) return { status: 'BLOCKED', reason: `Upstream changed: ${file.path}. Reassess compatibility before updating the fingerprint.` };
   }
   const scripts = resolve(root, 'skills/poteto-mode/scripts');
-  const prefix = 'skills/poteto-mode/scripts/';
   if (script === `${prefix}worktree-audit.sh`) {
     return { status: 'ADAPTER', command: ['node', resolve(here, 'worktree-audit.mjs'), '<repository>'], reason: 'Use Git-only evidence; Cursor chat recency is unavailable and cleanup approval stays unresolved.' };
   }

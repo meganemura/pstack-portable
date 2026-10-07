@@ -86,3 +86,10 @@ The four-slot schedule reserves root, diagnostic, candidate, and explainer slots
 A native tool must confirm release; the adapter does not equate completion or interruption with release.
 The shared-grounding schedule completes its independent stages before admitting two candidates without further required children.
 Both schedules stay within four slots. Native launch and release behavior still require host execution evidence.
+
+## Entry-specific executable fingerprints
+
+Preflight validates the selected entry and its reviewed dependency closure. The TSV logger has no pstack script dependencies.
+The orchestration and watcher entries retain bootstrap, package, lockfile, and imported module checks.
+A changed entry or dependency blocks that entry. Drift in an unrelated checker leaves the logger available.
+Review changed source before altering either hashes or dependency mappings. The full upstream review remains a separate obligation.
