@@ -27,6 +27,22 @@ Model sheets are isolated by environment at project and global scopes. A project
 Setup updates only the active environment. Native delegation determines available models and reasoning effort.
 The wrapper does not bridge applications or invoke provider CLIs. Cursor can use multiple model families when its own native tool supports them.
 
+## Plugin distribution
+
+The repository root is a plugin marketplace that Claude Code and Codex both read from `.claude-plugin/marketplace.json`.
+It offers two plugins. `pstack-portable` registers only the wrapper skill. `pstack` fetches upstream with `git-subdir` at the fingerprinted commit.
+The submodule alone cannot carry upstream to every host. Claude Code clones it with the marketplace, but Codex clones Git marketplaces without submodules.
+The `pstack` plugin reaches both hosts from one entry and keeps upstream files unmodified, so the repository vendors nothing.
+
+`pstack` is disabled by default. Its 50 skills stay out of the session, and Cursor-dependent workflows cannot start without the wrapper.
+Codex ignores `defaultEnabled`, so its users disable the plugin in their Codex configuration. A disabled plugin keeps its files in the cache.
+The wrapper declares no dependency on `pstack`, because a host enables every dependency of an enabled plugin.
+Both hosts cache a plugin at `<marketplace>/<plugin>/<version>`. `upstream-root.mjs` finds `pstack` beside the wrapper there.
+Plugin caches drop `.git`, so the resolver compares each pinned file with its Git blob hash from `upstream-tree.json`.
+
+Agents are not registered. With agent paths into the pinned tree, from a root entry or from `plugin.json`, `claude plugin details` listed no agents.
+The wrapper runs upstream agent prompts through general agents, so no workflow depends on registration.
+
 ## Limits
 
 Executable compatibility has an explicit mapping and a fingerprinted preflight.
@@ -68,6 +84,7 @@ Cloud execution and durable wake-up need concrete equivalents. Missing capabilit
 | A playbook step names a skill with model invocation disabled | Read its `SKILL.md` by path and run the step; if the host blocked it, report it unresolved |
 | Code delegated to a repository-defined agent | Brief carries the contract paths and the quoted Comments rule; the parent runs `no-comments` before review |
 | A user rule asks for module header comments | Write a short header with only what the code cannot show |
+| A plugin-installed wrapper beside a disabled `pstack` plugin | Select that plugin by its pinned files; keep its skills unregistered |
 | A configured upstream root differs from the pinned commit | Select the matched submodule and name the stale config; without one, exit with a reported version gap |
 
 Initial validation checks local file links, frontmatter, upstream resolution, and the written contract against these cases.

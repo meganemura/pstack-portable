@@ -4,7 +4,35 @@ A small execution adapter for upstream [pstack](https://github.com/cursor/plugin
 Upstream owns the workflows. This package keeps one wrapper skill and environment-specific translations.
 The wrapper skill is `poteto-mode-portable`. Invoke it as `/poteto-mode-portable` where you would invoke upstream `/poteto-mode`.
 
-## Use
+## Install as a plugin
+
+This repository is a plugin marketplace for Claude Code and Codex. It offers two plugins.
+`pstack-portable` registers the wrapper skill. `pstack` is upstream pstack, unmodified and pinned to the commit that the wrapper fingerprints.
+The wrapper reads the `pstack` plugin by path, so keep `pstack` installed and disabled.
+
+```sh
+# Claude Code: pstack starts disabled.
+claude plugin marketplace add meganemura/pstack-portable
+claude plugin install pstack-portable@pstack-portable
+claude plugin install pstack@pstack-portable
+
+# Codex
+codex plugin marketplace add meganemura/pstack-portable
+codex plugin add pstack-portable@pstack-portable
+codex plugin add pstack@pstack-portable
+# After adding, set enabled = false under [plugins."pstack@pstack-portable"] in ~/.codex/config.toml.
+```
+
+Plugin skills carry the plugin name, such as `/pstack-portable:poteto-mode-portable`.
+Upstream practices such as `tdd` and `unslop` run through the wrapper: "Use poteto-mode-portable to tdd this fix."
+Enabling `pstack` registers all 50 upstream skills directly, including workflows that assume Cursor.
+To update in Claude Code, run `claude plugin marketplace update pstack-portable`, then `claude plugin update` for each plugin. In Codex, `codex plugin marketplace upgrade pstack-portable` updates both plugins and keeps `pstack` disabled.
+Remove an earlier link or copy of `poteto-mode-portable` from `~/.agents/skills` and `~/.claude/skills`, so each host loads one wrapper.
+Directly installed upstream skills are optional. Keep them for direct invocation, or remove them for a wrapper-only setup. They do not follow plugin updates.
+Cursor reads the wrapper manifest in `.cursor-plugin/`, untested. A Cursor marketplace cannot pin the upstream commit, and the wrapper cannot find a separately installed pstack.
+In Cursor, point `~/.agents/pstack-upstream.json` at an upstream tree at the pinned commit, such as `upstream/plugins/pstack` in a clone. Cursor also runs upstream pstack natively without the wrapper.
+
+## Use without plugins
 
 For local checkouts, follow [Install from local checkouts](docs/install-local.md).
 Clone with `git clone --recurse-submodules https://github.com/meganemura/pstack-portable`. After each `git pull`, run `git submodule update --init`, because a plain pull does not fetch `upstream/plugins`.

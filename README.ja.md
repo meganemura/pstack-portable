@@ -4,7 +4,35 @@ upstream の [pstack](https://github.com/cursor/plugins/tree/main/pstack) を Cl
 ワークフローは upstream が持ちます。このパッケージは 1 つの wrapper skill と、環境ごとの変換だけを持ちます。
 wrapper skill の名前は `poteto-mode-portable` です。upstream で `/poteto-mode` を呼ぶ場面で、`/poteto-mode-portable` を呼びます。
 
-## 使い方
+## plugin として入れる
+
+このリポジトリは、Claude Code と Codex の plugin marketplace です。plugin を 2 つ提供します。
+`pstack-portable` は wrapper の skill を登録します。`pstack` は upstream の pstack を手を加えずに、wrapper が fingerprint を持つコミットに固定したものです。
+wrapper は `pstack` の plugin をパスで読むので、`pstack` は入れたまま無効にしておきます。
+
+```sh
+# Claude Code: pstack starts disabled.
+claude plugin marketplace add meganemura/pstack-portable
+claude plugin install pstack-portable@pstack-portable
+claude plugin install pstack@pstack-portable
+
+# Codex
+codex plugin marketplace add meganemura/pstack-portable
+codex plugin add pstack-portable@pstack-portable
+codex plugin add pstack@pstack-portable
+# After adding, set enabled = false under [plugins."pstack@pstack-portable"] in ~/.codex/config.toml.
+```
+
+plugin の skill は、`/pstack-portable:poteto-mode-portable` のように plugin の名前が付きます。
+`tdd` や `unslop` などの upstream の practice は、wrapper を通して使います。例: 「Use poteto-mode-portable to tdd this fix.」
+`pstack` を有効にすると、Cursor を前提とする workflow を含む upstream の 50 件の skill が、直接登録されます。
+Claude Code で更新するときは、`claude plugin marketplace update pstack-portable` のあと、plugin ごとに `claude plugin update` を実行します。Codex では `codex plugin marketplace upgrade pstack-portable` で 2 つの plugin が更新され、`pstack` は無効のまま残ります。
+以前に入れた `poteto-mode-portable` のリンクやコピーは、`~/.agents/skills` と `~/.claude/skills` から外します。各ホストが wrapper を 1 つだけ読むようにするためです。
+直接入れた upstream の skill は任意です。直接呼びたいなら残し、wrapper だけにするなら外します。これらは plugin の更新に追従しません。
+Cursor は `.cursor-plugin/` にある wrapper の定義を読みますが、試していません。Cursor の marketplace は upstream のコミットを固定できず、wrapper は別に入れた pstack を見つけられません。
+Cursor では、`~/.agents/pstack-upstream.json` を固定コミットの upstream のツリー(clone の `upstream/plugins/pstack` など)に向けます。Cursor では wrapper なしで upstream の pstack をそのまま使えます。
+
+## plugin を使わずに入れる
 
 ローカルのチェックアウトから入れる場合は、[Install from local checkouts](docs/install-local.md) に従います。
 `git clone --recurse-submodules https://github.com/meganemura/pstack-portable` で clone します。`git pull` のあとは毎回 `git submodule update --init` を実行します。pull だけでは `upstream/plugins` が取得されないためです。
