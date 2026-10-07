@@ -68,6 +68,7 @@ Cloud execution and durable wake-up need concrete equivalents. Missing capabilit
 | A playbook step names a skill with model invocation disabled | Read its `SKILL.md` by path and run the step; if the host blocked it, report it unresolved |
 | Code delegated to a repository-defined agent | Brief carries the contract paths and the quoted Comments rule; the parent runs `no-comments` before review |
 | A user rule asks for module header comments | Write a short header with only what the code cannot show |
+| A configured upstream root differs from the pinned commit | Select the matched submodule and name the stale config; without one, exit with a reported version gap |
 
 Initial validation checks local file links, frontmatter, upstream resolution, and the written contract against these cases.
 Actual end-to-end behavior in both applications requires supervised usage. Static checks do not establish runtime portability.

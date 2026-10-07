@@ -31,6 +31,49 @@ function preflight(upstream, script, environment = 'codex') {
   const result = run(process.execPath, [resolve(scripts, 'script-preflight.mjs'), '--upstream-root', upstream, '--environment', environment, '--script', script]);
   return { exit: result.status, ...JSON.parse(result.stdout) };
 }
+test('upstream root selection rejects a stale configured checkout', () => {
+  const fixture = mkdtempSync(resolve(tmpdir(), 'pstack-root-test-'));
+  try {
+    const repo = resolve(fixture, 'configured checkout');
+    const skill = resolve(repo, 'pstack/skills/poteto-mode/SKILL.md');
+    mkdirSync(dirname(skill), { recursive: true });
+    git(repo, 'init', '-b', 'main');
+    const commit = message => git(repo, '-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', '-c', 'commit.gpgsign=false', 'commit', '-am', message);
+    writeFileSync(skill, 'pinned');
+    git(repo, 'add', '.');
+    commit('Pinned');
+    const pinnedCommit = run('git', ['-C', repo, 'rev-parse', 'HEAD']).stdout.trim();
+    writeFileSync(skill, 'later');
+    commit('Later');
+    const pinnedTree = resolve(fixture, 'pinned checkout');
+    git(repo, 'worktree', 'add', '--detach', pinnedTree, pinnedCommit);
+    const manifest = resolve(fixture, 'manifest.json');
+    writeFileSync(manifest, JSON.stringify({ commit: pinnedCommit }));
+    const config = resolve(fixture, 'upstream.json');
+    writeFileSync(config, JSON.stringify({ root: resolve(repo, 'pstack') }));
+    const select = (...extra) => {
+      const result = run(process.execPath, [resolve(scripts, 'upstream-root.mjs'), '--manifest', manifest, '--config', config, ...extra]);
+      return { exit: result.status, ...JSON.parse(result.stdout) };
+    };
+
+    const pinned = select('--submodule', resolve(pinnedTree, 'pstack'));
+    assert.equal(pinned.exit, 0);
+    assert.equal(pinned.status, 'MATCHED');
+    assert.equal(pinned.selected, realpathSync(resolve(pinnedTree, 'pstack')));
+    assert.match(pinned.notes.join('\n'), /points at a different upstream/);
+
+    const stale = select('--submodule', resolve(fixture, 'absent'));
+    assert.equal(stale.exit, 2);
+    assert.equal(stale.status, 'MISMATCH');
+
+    const requested = select('--submodule', resolve(pinnedTree, 'pstack'), '--root', resolve(repo, 'pstack'));
+    assert.equal(requested.exit, 2);
+    assert.equal(requested.selected, realpathSync(resolve(repo, 'pstack')));
+
+    writeFileSync(resolve(pinnedTree, 'pstack/skills/poteto-mode/SKILL.md'), 'edited');
+    assert.equal(select('--submodule', resolve(pinnedTree, 'pstack')).status, 'MISMATCH');
+  } finally { rmSync(fixture, { recursive: true, force: true }); }
+});
 test('worktree audit separates wip from scratch and preserves unknown evidence', () => {
   const fixture = mkdtempSync(resolve(tmpdir(), 'pstack-worktree-test-'));
   try {

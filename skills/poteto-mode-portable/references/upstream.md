@@ -5,11 +5,13 @@ Skills installers may copy or symlink individual skill folders without copying r
 
 ## Skill map
 
-Prefer a user-supplied upstream location, then the `root` path in `~/.agents/pstack-upstream.json` when that file exists.
-This local file is source-location data. Validate that the root contains `skills/poteto-mode/SKILL.md` before using it.
-Next, use the wrapper repository's pinned submodule at `../../upstream/plugins/pstack`, relative to this skill's real directory.
-It exists when the wrapper links to a clone with initialized submodules. Its commit matches the executable fingerprints.
-Otherwise use the active session's exposed skill locations.
+Select the root with `node <wrapper>/scripts/upstream-root.mjs`. Add `--root <path>` for a location the user supplied.
+It checks a user-supplied root, the `root` in `~/.agents/pstack-upstream.json`, and the wrapper repository's pinned submodule.
+It compares each `pstack` tree with the fingerprinted commit and prints the selected root.
+`MATCHED` means use that root. `UNVERIFIED` means the commit cannot be compared, for example outside Git. Use the root and record that its revision is unverified.
+`MISMATCH` exits with status 2. Report the version gap before you follow upstream instructions from that root.
+When a stale config loses to a matched submodule, the notes name the config. Tell the user to remove or update it.
+When the script finds no root, use the active session's exposed skill locations.
 When a catalog is incomplete, inspect the active project's and user's configured skill directories for pstack skill folders.
 Use targeted discovery of `poteto-mode/SKILL.md`, `interrogate/SKILL.md`, and required `principle-*/SKILL.md` files.
 Common roots include `.agents/skills` and `.claude/skills`; use the actual environment configuration rather than assuming those paths.
