@@ -1,0 +1,21 @@
+{
+  "name": "pstack-portable",
+  "displayName": "pstack-portable",
+  "version": "0.4.0",
+  "description": "Run unmodified upstream pstack in Claude Code, Codex, and Cursor through a thin execution wrapper.",
+  "author": {
+    "name": "meganemura",
+    "url": "https://github.com/meganemura"
+  },
+  "homepage": "https://github.com/meganemura/pstack-portable",
+  "repository": "https://github.com/meganemura/pstack-portable",
+  "license": "MIT",
+  "keywords": [
+    "pstack",
+    "poteto-mode",
+    "portable"
+  ],
+  "skills": [
+    "./skills/poteto-mode-portable"
+  ]
+}

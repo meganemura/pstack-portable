@@ -1,6 +1,6 @@
 // Select the upstream pstack root and compare it with the fingerprinted commit. Reads files and Git state only; never fetches or edits.
 import { createHash } from 'node:crypto';
-import { existsSync, readFileSync, realpathSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, realpathSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -49,6 +49,13 @@ function inspect(source, path) {
   return { source, root: real, status: 'MATCHED' };
 }
 
+// Claude Code and Codex cache each plugin at <marketplace>/<plugin>/<version>, so the pinned upstream plugin sits beside this one.
+function pluginRoots() {
+  const parent = option('--plugins', resolve(here, '../../../../../pstack'));
+  if (!existsSync(parent)) return [];
+  return readdirSync(parent, { withFileTypes: true }).filter(entry => entry.isDirectory()).map(entry => resolve(parent, entry.name));
+}
+
 let configured = null;
 if (existsSync(config)) {
   try { configured = JSON.parse(readFileSync(config, 'utf8')).root ?? null; } catch { configured = null; }
@@ -57,7 +64,8 @@ const candidates = [
   inspect('request', option('--root')),
   inspect('config', configured),
   inspect('submodule', option('--submodule', resolve(here, '../../../upstream/plugins/pstack'))),
-].filter(candidate => candidate && !(candidate.source === 'submodule' && candidate.status === 'INVALID'));
+  ...pluginRoots().map(path => inspect('plugin', path)),
+].filter(candidate => candidate && !(['submodule', 'plugin'].includes(candidate.source) && candidate.status === 'INVALID'));
 
 const usable = candidates.filter(candidate => candidate.status !== 'INVALID');
 const explicit = usable.find(candidate => candidate.source === 'request');

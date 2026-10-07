@@ -31,6 +31,22 @@ function preflight(upstream, script, environment = 'codex') {
   const result = run(process.execPath, [resolve(scripts, 'script-preflight.mjs'), '--upstream-root', upstream, '--environment', environment, '--script', script]);
   return { exit: result.status, ...JSON.parse(result.stdout) };
 }
+// The pinned upstream plugin must name the same commit and version that the fingerprints and the file list check.
+test('plugin manifests pin upstream and register only the wrapper', () => {
+  const read = path => JSON.parse(readFileSync(resolve(root, path), 'utf8'));
+  const pinnedScripts = read('skills/poteto-mode-portable/scripts/upstream-scripts.json');
+  const [wrapper, upstream] = read('.claude-plugin/marketplace.json').plugins;
+  for (const manifest of [wrapper, read('.codex-plugin/plugin.json'), read('.cursor-plugin/plugin.json')]) {
+    assert.deepEqual(manifest.skills, ['./skills/poteto-mode-portable']);
+    assert.equal(manifest.version, wrapper.version);
+  }
+  assert.equal(wrapper.source, '.');
+  assert.equal(upstream.name, 'pstack');
+  assert.equal(upstream.defaultEnabled, false);
+  assert.equal(upstream.version, pinnedScripts.version);
+  assert.deepEqual(upstream.source, { source: 'git-subdir', url: 'https://github.com/cursor/plugins.git', path: 'pstack', sha: pinnedScripts.commit });
+  assert.equal(read('.cursor-plugin/marketplace.json').plugins[0].source, '.');
+});
 test('pinned file list matches the pinned commit', () => {
   const tree = JSON.parse(readFileSync(resolve(scripts, 'upstream-tree.json'), 'utf8'));
   const manifest = JSON.parse(readFileSync(resolve(scripts, 'upstream-scripts.json'), 'utf8'));
@@ -51,15 +67,18 @@ test('upstream root verifies a copy without Git by its pinned files', { skip: !e
     assert.equal(run('cp', ['-R', pinned, copy]).status, 0);
     rmSync(resolve(copy, '.git'), { force: true });
     writeFileSync(resolve(copy, 'untracked note.txt'), 'extra files do not count');
-    const select = () => {
-      const result = run(process.execPath, [resolve(scripts, 'upstream-root.mjs'), '--config', resolve(fixture, 'absent.json'), '--submodule', resolve(fixture, 'absent'), '--root', copy]);
+    const select = (...extra) => {
+      const result = run(process.execPath, [resolve(scripts, 'upstream-root.mjs'), '--config', resolve(fixture, 'absent.json'), '--submodule', resolve(fixture, 'absent'), ...extra]);
       return { exit: result.status, ...JSON.parse(result.stdout) };
     };
-    const intact = select();
+    const intact = select('--root', copy);
+    const sibling = select('--plugins', dirname(copy));
+    assert.equal(sibling.status, 'MATCHED');
+    assert.equal(sibling.candidates[0].source, 'plugin');
     assert.equal(intact.status, 'MATCHED');
     assert.equal(intact.exit, 0);
     writeFileSync(resolve(copy, 'skills/poteto-mode/SKILL.md'), 'edited');
-    const edited = select();
+    const edited = select('--root', copy);
     assert.equal(edited.status, 'MISMATCH');
     assert.equal(edited.exit, 2);
     assert.match(edited.candidates[0].reason, /skills\/poteto-mode\/SKILL\.md/);

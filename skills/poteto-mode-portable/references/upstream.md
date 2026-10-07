@@ -1,12 +1,12 @@
 # Resolve installed upstream skills
 
-The normal installation contains upstream pstack skills and this wrapper. A repository checkout is optional.
+A plugin installation places the pinned `pstack` plugin beside this wrapper. A skills installation copies upstream skills next to it. A repository checkout is optional.
 Skills installers may copy or symlink individual skill folders without copying repository-level agent definitions.
 
 ## Skill map
 
 Select the root with `node <wrapper>/scripts/upstream-root.mjs`. Add `--root <path>` for a location the user supplied.
-It checks a user-supplied root, the `root` in `~/.agents/pstack-upstream.json`, and the wrapper repository's pinned submodule.
+It checks a user-supplied root, the `root` in `~/.agents/pstack-upstream.json`, the wrapper repository's pinned submodule, and the `pstack` plugin installed beside a plugin-installed wrapper.
 It compares each `pstack` tree with the fingerprinted commit and prints the selected root.
 `MATCHED` means use that root. `UNVERIFIED` means the commit cannot be compared, for example outside Git. Use the root and record that its revision is unverified.
 `MISMATCH` exits with status 2. Report the version gap before you follow upstream instructions from that root.

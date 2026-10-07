@@ -1,0 +1,40 @@
+{
+  "name": "pstack-portable",
+  "owner": {
+    "name": "meganemura",
+    "url": "https://github.com/meganemura"
+  },
+  "description": "Run unmodified upstream pstack in Claude Code, Codex, and Cursor through a thin execution wrapper.",
+  "plugins": [
+    {
+      "name": "pstack-portable",
+      "source": ".",
+      "version": "0.4.0",
+      "description": "Run unmodified upstream pstack in Claude Code, Codex, and Cursor through a thin execution wrapper.",
+      "author": {
+        "name": "meganemura",
+        "url": "https://github.com/meganemura"
+      },
+      "homepage": "https://github.com/meganemura/pstack-portable",
+      "repository": "https://github.com/meganemura/pstack-portable",
+      "license": "MIT",
+      "skills": [
+        "./skills/poteto-mode-portable"
+      ]
+    },
+    {
+      "name": "pstack",
+      "description": "Upstream pstack, unmodified and pinned to the commit the wrapper fingerprints. Disabled by default; the wrapper reads its files.",
+      "version": "0.15.9",
+      "defaultEnabled": false,
+      "license": "MIT",
+      "homepage": "https://github.com/cursor/plugins/tree/main/pstack",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/cursor/plugins.git",
+        "path": "pstack",
+        "sha": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+      }
+    }
+  ]
+}

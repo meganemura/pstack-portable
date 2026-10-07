@@ -1,0 +1,33 @@
+{
+  "name": "pstack-portable",
+  "version": "0.4.0",
+  "description": "Run unmodified upstream pstack in Claude Code, Codex, and Cursor through a thin execution wrapper.",
+  "author": {
+    "name": "meganemura",
+    "url": "https://github.com/meganemura"
+  },
+  "homepage": "https://github.com/meganemura/pstack-portable",
+  "repository": "https://github.com/meganemura/pstack-portable",
+  "license": "MIT",
+  "keywords": [
+    "pstack",
+    "poteto-mode",
+    "codex",
+    "claude-code",
+    "cursor",
+    "skills"
+  ],
+  "skills": [
+    "./skills/poteto-mode-portable"
+  ],
+  "interface": {
+    "displayName": "pstack-portable",
+    "shortDescription": "Unmodified pstack workflows outside Cursor",
+    "developerName": "meganemura",
+    "category": "Developer Tools",
+    "defaultPrompt": [
+      "Use poteto-mode-portable to fix this bug.",
+      "Use poteto-mode-portable to interrogate this diff."
+    ]
+  }
+}

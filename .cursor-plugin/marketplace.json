@@ -1,0 +1,17 @@
+{
+  "name": "pstack-portable",
+  "owner": {
+    "name": "meganemura",
+    "url": "https://github.com/meganemura"
+  },
+  "metadata": {
+    "description": "Run unmodified upstream pstack in Claude Code, Codex, and Cursor through a thin execution wrapper."
+  },
+  "plugins": [
+    {
+      "name": "pstack-portable",
+      "source": ".",
+      "description": "Run unmodified upstream pstack in Claude Code, Codex, and Cursor through a thin execution wrapper."
+    }
+  ]
+}

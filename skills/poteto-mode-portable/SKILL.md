@@ -7,7 +7,7 @@ description: Run upstream pstack workflows in Claude Code, Codex, or Cursor thro
 # Portable poteto mode
 
 This skill adapts execution mechanics. Upstream pstack owns the engineering principles, playbooks, review criteria, and prompts.
-Install upstream pstack skills and this wrapper with the skills installer. This wrapper does not supply upstream workflows.
+Install this wrapper and upstream pstack as plugins from this repository's marketplace, or with the skills installer. This wrapper does not supply upstream workflows.
 License and upstream attribution travel with the installable skill. See [attribution.md](references/attribution.md).
 
 ## Load the execution contract
