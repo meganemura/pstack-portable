@@ -27,6 +27,9 @@ Plugin skills carry the plugin name, such as `/pstack-portable:poteto-mode-porta
 Upstream practices such as `tdd` and `unslop` run through the wrapper: "Use poteto-mode-portable to tdd this fix."
 Enabling `pstack` registers all 50 upstream skills directly, including workflows that assume Cursor.
 To update in Claude Code, run `claude plugin marketplace update pstack-portable`, then `claude plugin update` for each plugin. In Codex, `codex plugin marketplace upgrade pstack-portable` updates both plugins and keeps `pstack` disabled.
+Each version on `main` has a `v<version>` tag.
+To stay on one version, add the marketplace at its tag: `meganemura/pstack-portable#v0.4.0` in Claude Code, or `--ref v0.4.0` in Codex.
+[Release flow](docs/release.md) describes how versions reach `main`.
 Remove an earlier link or copy of `poteto-mode-portable` from `~/.agents/skills` and `~/.claude/skills`, so each host loads one wrapper.
 Directly installed upstream skills are optional. Keep them for direct invocation, or remove them for a wrapper-only setup. They do not follow plugin updates.
 Cursor reads the wrapper manifest in `.cursor-plugin/`, untested. A Cursor marketplace cannot pin the upstream commit, and the wrapper cannot find a separately installed pstack.

@@ -1,0 +1,67 @@
+# Verify every pull request and every push to main, and tag each new wrapper version on main.
+# A merge to main is a release: Codex follows main, and the tag gives Claude Code and Codex a fixed ref.
+# The jobs use no third-party or GitHub-owned actions, so no action pin needs upkeep.
+name: Verify and release
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Fetch the commit and the pinned upstream
+        run: |
+          git init -q .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          git fetch -q --depth 1 origin "$GITHUB_SHA"
+          git checkout -q FETCH_HEAD
+          git submodule update -q --init --depth 1
+      - name: Run the checks
+        run: |
+          node --version
+          node --test tests/script-adapters.test.mjs
+          node --check skills/poteto-mode-portable/scripts/script-preflight.mjs
+          node --check skills/poteto-mode-portable/scripts/worktree-audit.mjs
+
+  release:
+    needs: verify
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    concurrency:
+      group: release
+      cancel-in-progress: false
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Fetch the commit
+        run: |
+          git init -q .
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          git fetch -q --depth 1 origin "$GITHUB_SHA"
+          git checkout -q FETCH_HEAD
+      # The verify job already checked that the three manifests carry the same version.
+      # An annotated tag through the API matches the tags made by hand; gh release create alone makes a lightweight tag.
+      - name: Tag and release the wrapper version
+        run: |
+          version=$(node -p "require('./.claude-plugin/marketplace.json').plugins.find(p => p.name === 'pstack-portable').version")
+          tag="v$version"
+          tagged=$(git ls-remote origin "refs/tags/$tag^{}" | cut -f1)
+          if [ -n "$tagged" ]; then
+            if [ "$tagged" != "$GITHUB_SHA" ]; then
+              echo "::warning::main has commits after $tag without a version bump. Claude Code users receive them only at the next version."
+            fi
+            exit 0
+          fi
+          object=$(gh api "repos/$GITHUB_REPOSITORY/git/tags" -f tag="$tag" -f message="pstack-portable $version" -f object="$GITHUB_SHA" -f type=commit --jq .sha)
+          gh api "repos/$GITHUB_REPOSITORY/git/refs" -f ref="refs/tags/$tag" -f sha="$object" > /dev/null
+          gh release create "$tag" --repo "$GITHUB_REPOSITORY" --verify-tag --title "$tag" --generate-notes
