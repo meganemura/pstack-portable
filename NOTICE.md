@@ -9,8 +9,8 @@ The wrapper's worktree audit adapts the upstream audit's Git evidence and conser
 Skill instructions translate upstream role names, workflow requirements, and agent-loading behavior.
 The original upstream notices remain applicable to material adapted from pstack.
 
-The executable compatibility snapshot uses pstack 0.15.9 at Cursor repository commit `e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a`.
-Source: [cursor/plugins/pstack](https://github.com/cursor/plugins/tree/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack).
+The executable compatibility snapshot uses pstack 0.15.17 at Cursor repository commit `978ca6e9c0e012047cd5058b8e829240336e704e`.
+Source: [cursor/plugins/pstack](https://github.com/cursor/plugins/tree/978ca6e9c0e012047cd5058b8e829240336e704e/pstack).
 The hash manifest records the exact source files checked by script preflight.
 
 The installable skill includes its own license and an [upstream attribution notice](skills/poteto-mode-portable/references/attribution.md).

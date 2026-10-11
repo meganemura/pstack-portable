@@ -65,6 +65,7 @@ Check that no capacity-dependent parent waits for a child whose slot is held by 
 ## Cloud workers and workspace isolation
 
 `environment: cloud` and `cloud_base_branch` describe Cursor cloud execution.
+Upstream guide references to cloud subagents, `/in-cloud`, and Cursor Projects describe the same execution.
 Use a verified equivalent if available. Otherwise describe local execution and its differences before dispatch.
 For local writes, prepare a separate worktree at the intended base ref for each worker.
 Read-only workers may share the checkout if concurrent writes cannot invalidate their evidence.
@@ -98,6 +99,15 @@ Upstream writes a plan under the agent store's `docs/` unless the operator names
 
 Upstream Poteto Mode sets `mode: true` and a `reminder:` so Cursor keeps it active across tasks.
 Claude Code and Codex load a skill when it is invoked. Invoke `poteto-mode-portable` again for each new task. This wrapper installs no reminder.
+Upstream guide and `poteto-help` text about Custom Modes, Option+Enter, and Alt+Enter describes this Cursor feature. Outside Cursor, answer with the rule above.
+
+## Help answers
+
+Upstream `poteto-help` answers questions about Cursor setup and use. Answer for the active host instead.
+Its check for `~/.cursor/rules/pstack-models.mdc` means the selection in `settings.md`. When no sheet is selected for the active environment, setup has not run there.
+Install steps such as `/add-plugin pstack` apply to Cursor. Outside Cursor, refer to the installation that provided this wrapper.
+Example prompts that start with an upstream slash command run through `poteto-mode-portable` outside Cursor. Give the prompt in that form.
+Link upstream files at the recorded source revision, `https://github.com/cursor/plugins/blob/<revision>/pstack/<path>`. Use `main` only when the revision is unknown, and say so.
 
 ## Skill directories
 
