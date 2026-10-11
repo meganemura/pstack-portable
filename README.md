@@ -25,7 +25,7 @@ codex plugin add pstack@pstack-portable
 
 Plugin skills carry the plugin name, such as `/pstack-portable:poteto-mode-portable`.
 Upstream practices such as `tdd` and `unslop` run through the wrapper: "Use poteto-mode-portable to tdd this fix."
-Enabling `pstack` registers all 50 upstream skills directly, including workflows that assume Cursor.
+Enabling `pstack` registers all 52 upstream skills directly, including workflows that assume Cursor.
 To update in Claude Code, run `claude plugin marketplace update pstack-portable`, then `claude plugin update` for each plugin. In Codex, `codex plugin marketplace upgrade pstack-portable` updates both plugins and keeps `pstack` disabled.
 Remove an earlier link or copy of `poteto-mode-portable` from `~/.agents/skills` and `~/.claude/skills`, so each host loads one wrapper.
 Directly installed upstream skills are optional. Keep them for direct invocation, or remove them for a wrapper-only setup. They do not follow plugin updates.

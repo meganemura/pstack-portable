@@ -1,5 +1,5 @@
 {
-  "version": "0.15.9",
+  "version": "0.15.17",
   "files": [
     {
       "sha256": "ccd2ed08fd9da9d0d942e5f2491cfc74bb92d8a08fa51755e0da1ac8de287361",
@@ -58,6 +58,6 @@
       "path": "skills/poteto-mode/scripts/bun.lock"
     }
   ],
-  "source": "https://github.com/cursor/plugins/tree/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack",
-  "commit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+  "source": "https://github.com/cursor/plugins/tree/978ca6e9c0e012047cd5058b8e829240336e704e/pstack",
+  "commit": "978ca6e9c0e012047cd5058b8e829240336e704e"
 }

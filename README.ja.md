@@ -25,7 +25,7 @@ codex plugin add pstack@pstack-portable
 
 plugin の skill は、`/pstack-portable:poteto-mode-portable` のように plugin の名前が付きます。
 `tdd` や `unslop` などの upstream の practice は、wrapper を通して使います。例: 「Use poteto-mode-portable to tdd this fix.」
-`pstack` を有効にすると、Cursor を前提とする workflow を含む upstream の 50 件の skill が、直接登録されます。
+`pstack` を有効にすると、Cursor を前提とする workflow を含む upstream の 52 件の skill が、直接登録されます。
 Claude Code で更新するときは、`claude plugin marketplace update pstack-portable` のあと、plugin ごとに `claude plugin update` を実行します。Codex では `codex plugin marketplace upgrade pstack-portable` で 2 つの plugin が更新され、`pstack` は無効のまま残ります。
 以前に入れた `poteto-mode-portable` のリンクやコピーは、`~/.agents/skills` と `~/.claude/skills` から外します。各ホストが wrapper を 1 つだけ読むようにするためです。
 直接入れた upstream の skill は任意です。直接呼びたいなら残し、wrapper だけにするなら外します。これらは plugin の更新に追従しません。
