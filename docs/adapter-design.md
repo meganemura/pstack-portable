@@ -111,3 +111,11 @@ Preflight validates the selected entry and its reviewed dependency closure. The 
 The orchestration and watcher entries retain bootstrap, package, lockfile, and imported module checks.
 A changed entry or dependency blocks that entry. Drift in an unrelated checker leaves the logger available.
 Review changed source before altering either hashes or dependency mappings. The full upstream review remains a separate obligation.
+
+## Pending native threads
+
+A reported native child remained pending_init after interruption, and a later spawn hit the thread limit.
+The adapter treats unchanged pending state as occupied capacity. Completion permits a fresh observation, not an assumed release.
+A new capacity report, a disappeared child, or a newly observed terminal transition permits one spawn probe.
+A rejected probe requires new evidence. Eligible existing children can accept serial work only when independence and model requirements permit reuse.
+These rules describe recovery decisions. The report does not establish the host's release behavior, and native recovery remains unverified here.
