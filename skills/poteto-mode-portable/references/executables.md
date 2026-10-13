@@ -25,7 +25,7 @@ An unknown script needs an explicit mapping. Test, typecheck, and library files 
 | Upstream entry | Handling |
 | --- | --- |
 | `show-me-your-work/scripts/log.sh` | Run with Bash. It writes the chosen TSV file; transcript verification remains a separate step. |
-| `poteto-mode/scripts/worktree-audit.sh` | Use the wrapper's Node audit in all environments. It reads Git state without Cursor transcript paths or macOS date/stat assumptions. |
+| `poteto-mode/scripts/worktree-audit.sh` | Use the wrapper's Node audit in all environments. It reads Git state without Cursor transcript paths or macOS date/stat assumptions. It accepts upstream's `-b <pr-base-ref>`. Without it, the merge check uses `origin/HEAD`, then `origin/main`, then `origin/master`. |
 | `poteto-mode/scripts/check-plan.mjs` | Run upstream with Node in Cursor and Claude Code. In Codex, retain manual plan review and report this automatic gate unresolved. The checker requires a `/loop 1h` audit tick in the program, and Codex has no verified recurring loop command. Its `git show origin/main:` marker follows the trunk re-read rule in `capabilities.md`. |
 | `poteto-mode/scripts/orch/orch.ts` | Bun and prepared locked dependencies are required. Pass `--store` with an explicit task-owned directory instead of assuming a Cursor agent store. |
 | `poteto-mode/scripts/watch-pr/watch-pr` | Bun, prepared locked dependencies, and authenticated `gh` are required. It watches GitHub; wake-up capability is separate. |

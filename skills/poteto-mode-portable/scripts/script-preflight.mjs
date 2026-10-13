@@ -44,7 +44,7 @@ function inspect() {
   }
   const scripts = resolve(root, 'skills/poteto-mode/scripts');
   if (script === `${prefix}worktree-audit.sh`) {
-    return { status: 'ADAPTER', command: ['node', resolve(here, 'worktree-audit.mjs'), '<repository>'], reason: 'Use Git-only evidence; Cursor chat recency is unavailable and cleanup approval stays unresolved.' };
+    return { status: 'ADAPTER', command: ['node', resolve(here, 'worktree-audit.mjs'), '<repository>'], reason: 'Use Git-only evidence; Cursor chat recency is unavailable and cleanup approval stays unresolved.', requirements: ['Pass `-b <pr-base-ref>` before the repository when PRs target a branch other than the remote default. Without it, the merge check uses origin/HEAD, then origin/main, then origin/master.'] };
   }
   if (script === `${prefix}check-plan.mjs`) {
     // The checker requires the program to arm `/loop 1h`. Cursor and Claude Code expose a native `/loop`; Codex has no verified equivalent.

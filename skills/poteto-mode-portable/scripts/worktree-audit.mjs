@@ -2,12 +2,26 @@
 import { spawnSync } from 'node:child_process';
 import { resolve } from 'node:path';
 
-const repository = resolve(process.argv[2] || '.');
-const base = process.argv[3] || 'origin/main';
+// Accept the upstream `-b|--base <ref> [repo-path]` form. A second positional argument also names the base.
+const positional = [];
+let requestedBase;
+for (let at = 2; at < process.argv.length; at++) {
+  const arg = process.argv[at];
+  if (arg === '-b' || arg === '--base') {
+    if (!process.argv[at + 1]) { console.error(`error: ${arg} needs a ref`); process.exit(2); }
+    requestedBase = process.argv[++at];
+  } else positional.push(arg);
+}
+const repository = resolve(positional[0] || '.');
 function git(path, args) {
   const result = spawnSync('git', ['-C', path, ...args], { encoding: 'utf8', timeout: 10000 });
   return { ok: result.status === 0, output: result.stdout || '', error: result.stderr || '' };
 }
+const commitExists = ref => git(repository, ['rev-parse', '--verify', '--quiet', `${ref}^{commit}`]).ok;
+// Without a base, follow upstream's order: origin/HEAD, then origin/main, then origin/master. The remote default need not be the PR base.
+const defaultBase = () => [git(repository, ['symbolic-ref', '--short', 'refs/remotes/origin/HEAD']).output.trim(), 'origin/main', 'origin/master'].find(ref => ref && commitExists(ref));
+const base = requestedBase || positional[1] || defaultBase() || 'origin/main';
+const baseSource = requestedBase || positional[1] ? 'requested' : 'default';
 const listing = git(repository, ['worktree', 'list', '--porcelain', '-z']);
 if (!listing.ok) { console.error(listing.error); process.exit(2); }
 const records = [];
@@ -18,7 +32,7 @@ for (const field of listing.output.split('\0')) {
   else if (record && field.startsWith('branch ')) record.branch = field.slice(7);
   else if (record && field === 'prunable') record.prunable = true;
 }
-const baseExists = git(repository, ['rev-parse', '--verify', `${base}^{commit}`]).ok;
+const baseExists = commitExists(base);
 // Split status the way the upstream audit does: tracked edits are wip that blocks cleanup; untracked files are scratch the user must see named.
 function changes(output) {
   const tracked = [];
@@ -47,4 +61,4 @@ const worktrees = records.map(record => {
     disposition: !found ? 'needs-review' : found.tracked.length ? 'hold-wip' : 'needs-review',
   };
 });
-console.log(JSON.stringify({ repository, base, baseExists, fetchPerformed: false, deletionAuthorized: false, worktrees }, null, 2));
+console.log(JSON.stringify({ repository, base, baseSource, baseExists, fetchPerformed: false, deletionAuthorized: false, worktrees }, null, 2));
