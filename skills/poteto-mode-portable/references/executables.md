@@ -1,6 +1,6 @@
 # Upstream hooks, scripts, and automations
 
-This mapping covers the fingerprinted pstack 0.15.17 executable resources.
+This mapping covers the fingerprinted pstack 0.15.21 executable resources.
 It distinguishes host hooks from scripts invoked by playbooks. A skills installation does not install a host's plugin hooks.
 
 ## Before executing a script
@@ -47,6 +47,7 @@ The adapter does not replace missing history with invented timestamps.
 ## Hooks
 
 The inspected `.cursor-plugin/plugin.json` registers `skills` and `agents`; its registered resources are distinct from host event hooks.
+The root `plugin.json` is an Agent Plugins v1 manifest with metadata only. It registers no components or hooks.
 Playbook references to hooks also include the target repository's own pre-commit and pre-push checks. Preserve those native Git hooks.
 Do not interpret a hook pass as behavioral verification.
 

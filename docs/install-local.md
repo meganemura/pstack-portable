@@ -5,7 +5,7 @@ Keep the full upstream checkout readable for workflows that require execution tr
 
 ## Select the upstream skills
 
-This profile installs 31 skills from upstream pstack 0.15.17:
+This profile installs 31 skills from upstream pstack 0.15.21:
 
 - The 24 `principle-*` skills provide engineering rules.
 - `tdd` provides the focused regression-test workflow.

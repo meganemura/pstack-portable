@@ -1,16 +1,16 @@
 {
-  "version": "0.15.17",
+  "version": "0.15.21",
   "files": [
     {
       "sha256": "ccd2ed08fd9da9d0d942e5f2491cfc74bb92d8a08fa51755e0da1ac8de287361",
       "path": "skills/poteto-mode/scripts/bootstrap.ts"
     },
     {
-      "sha256": "95b8530f3c0ccada8cabc4b0727c052fbc85c141531375aaace65c427af8aecc",
+      "sha256": "9faa9a2534ad64069dec67ac5b5ce1dc23b8fe635ecfd7f6557b1e3ada61fd2f",
       "path": "skills/poteto-mode/scripts/worktree-audit.sh"
     },
     {
-      "sha256": "4f9432d9989880b6afc2bdda503d5b12a9d07d357ecf31936b7ab5e83bc80523",
+      "sha256": "e58c3d871b09d477be00628d69dd23ffa6c2e3a1728f5b867a841baa8e90278b",
       "path": "skills/poteto-mode/scripts/check-plan.mjs"
     },
     {
@@ -30,11 +30,11 @@
       "path": "skills/poteto-mode/scripts/watch-pr/cli.ts"
     },
     {
-      "sha256": "d1bbbafbe8e2c703c84da2029de7f2c4011412512f8cf65a42100f46bcb92c8a",
+      "sha256": "9ea8de77e019de19929fbe4a86bc88492ffbecd89d6816d9857ed49db904c151",
       "path": "skills/poteto-mode/scripts/watch-pr/github.ts"
     },
     {
-      "sha256": "68d240505852cf23c9b2dea463342e9e61243f486b3cc86c735d140f9ee7be49",
+      "sha256": "f2a3e31223d05edc05e5473cc3f8f3cb9bd20c202c30c6abe7f21f0f7aee8fbb",
       "path": "skills/poteto-mode/scripts/watch-pr/policy.ts"
     },
     {
@@ -42,7 +42,7 @@
       "path": "skills/poteto-mode/scripts/watch-pr/render.ts"
     },
     {
-      "sha256": "64ba6221e3bfe61bbb292337d199cdec6309455477280efb060203dba34e0e91",
+      "sha256": "0cac435294dc85ce1ba755e8e67f6c5ab163dfa252f2722d6e3a2d68c58fec59",
       "path": "skills/poteto-mode/scripts/watch-pr/types.ts"
     },
     {
@@ -50,7 +50,7 @@
       "path": "skills/show-me-your-work/scripts/log.sh"
     },
     {
-      "sha256": "d1f815091209d49763775cc188e8e06ff32d5fec648bffd2272bc25a165e87c3",
+      "sha256": "fd511a0c01f522e0c781ddd8eccea0e91697a0856c6e6a3261de78a6a0287c72",
       "path": "skills/poteto-mode/scripts/package.json"
     },
     {
@@ -58,6 +58,6 @@
       "path": "skills/poteto-mode/scripts/bun.lock"
     }
   ],
-  "source": "https://github.com/cursor/plugins/tree/978ca6e9c0e012047cd5058b8e829240336e704e/pstack",
-  "commit": "978ca6e9c0e012047cd5058b8e829240336e704e"
+  "source": "https://github.com/cursor/plugins/tree/997ffc7fe26bdaa6478a14e7f5b8d5f9ed747102/pstack",
+  "commit": "997ffc7fe26bdaa6478a14e7f5b8d5f9ed747102"
 }

@@ -41,7 +41,8 @@ Include the resolved skill map, source revision, environment ID, selected settin
 Tell each child to read those files before work and apply the translations to its own children.
 Include the goal, scope, writable worktree or output, verification criteria, model choice, and permission limits.
 Include descendant capacity reservations, the dispatch coordinator, and unresolved independence gates.
-An upstream `poteto-agent` request means reading its resolved upstream definition, then following its referenced mode.
+Upstream `poteto-agent` is a delegate. The chat that loaded this wrapper runs the playbook; never spawn a child to run it.
+A `poteto-agent` brief carries the absolute path of upstream `poteto-mode/SKILL.md`. The child reads its resolved upstream definition, then follows that mode.
 Other named agent requests mean reading their upstream definition; use a supported native agent type to execute that prompt.
 The parent checks actual changes and evidence before reporting results. Same-model workers do not establish model diversity.
 
