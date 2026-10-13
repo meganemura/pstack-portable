@@ -6,7 +6,7 @@ The original license and copyright notice are included in [LICENSE-pstack](LICEN
 
 Original wrapper contributions are MIT-licensed, Copyright (c) 2026 meganemura. See [LICENSE](../LICENSE).
 The Node worktree audit adapts the upstream Git audit approach, while omitting Cursor history access and deletion decisions.
-The executable snapshot records pstack 0.15.17 at commit `978ca6e9c0e012047cd5058b8e829240336e704e` of [cursor/plugins](https://github.com/cursor/plugins/tree/978ca6e9c0e012047cd5058b8e829240336e704e/pstack).
+The executable snapshot records pstack 0.15.21 at commit `997ffc7fe26bdaa6478a14e7f5b8d5f9ed747102` of [cursor/plugins](https://github.com/cursor/plugins/tree/997ffc7fe26bdaa6478a14e7f5b8d5f9ed747102/pstack).
 Keep both license texts and this notice with this skill when copying or distributing it.
 Preserve upstream license notices alongside any upstream resources you copy separately.
 This independent adapter does not imply endorsement by the upstream author or agent application vendors.

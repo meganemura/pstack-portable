@@ -167,6 +167,34 @@ test('worktree audit separates wip from scratch and preserves unknown evidence',
     assert.equal(readFileSync(resolve(child, 'untracked.txt'), 'utf8'), 'preserve me');
   } finally { rmSync(fixture, { recursive: true, force: true }); }
 });
+test('worktree audit selects the base the way upstream does', () => {
+  const fixture = mkdtempSync(resolve(tmpdir(), 'pstack-worktree-base-test-'));
+  try {
+    const repo = resolve(fixture, 'repository');
+    mkdirSync(repo);
+    git(repo, 'init', '-b', 'feature');
+    git(repo, '-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', '-c', 'commit.gpgsign=false', 'commit', '--allow-empty', '-m', 'Fixture');
+    const audit = (...args) => {
+      const result = run(process.execPath, [resolve(scripts, 'worktree-audit.mjs'), ...args]);
+      assert.equal(result.status, 0, result.stderr);
+      return JSON.parse(result.stdout);
+    };
+    git(repo, 'update-ref', 'refs/remotes/origin/master', 'HEAD');
+    assert.equal(audit(repo).base, 'origin/master');
+    git(repo, 'update-ref', 'refs/remotes/origin/trunk', 'HEAD');
+    git(repo, 'symbolic-ref', 'refs/remotes/origin/HEAD', 'refs/remotes/origin/trunk');
+    const fallback = audit(repo);
+    assert.equal(fallback.base, 'origin/trunk');
+    assert.equal(fallback.baseSource, 'default');
+    assert.equal(fallback.worktrees[0].mergedByAncestry, 'yes');
+    const requested = audit('-b', 'origin/integration', repo);
+    assert.equal(requested.base, 'origin/integration');
+    assert.equal(requested.baseSource, 'requested');
+    assert.equal(requested.baseExists, false);
+    assert.equal(requested.worktrees[0].mergedByAncestry, 'unknown');
+    assert.equal(audit('--base', 'origin/trunk', repo).baseExists, true);
+  } finally { rmSync(fixture, { recursive: true, force: true }); }
+});
 test('script preflight rejects unsupported execution and changed upstream', { skip: !source && 'Run git submodule update --init, or set PSTACK_UPSTREAM_ROOT.' }, () => {
   const fixture = mkdtempSync(resolve(tmpdir(), 'pstack-preflight-test-'));
   try {
@@ -176,7 +204,9 @@ test('script preflight rejects unsupported execution and changed upstream', { sk
       mkdirSync(dirname(target), { recursive: true });
       copyFileSync(resolve(source, file.path), target);
     }
-    assert.equal(preflight(fixture, 'skills/poteto-mode/scripts/worktree-audit.sh').status, 'ADAPTER');
+    const audit = preflight(fixture, 'skills/poteto-mode/scripts/worktree-audit.sh');
+    assert.equal(audit.status, 'ADAPTER');
+    assert.match(audit.requirements.join('\n'), /-b <pr-base-ref>/);
     assert.equal(preflight(fixture, 'skills/poteto-mode/scripts/check-plan.mjs').exit, 2);
     assert.equal(preflight(fixture, 'skills/poteto-mode/scripts/check-plan.mjs', 'cursor').status, 'READY');
     assert.equal(preflight(fixture, 'skills/poteto-mode/scripts/check-plan.mjs', 'claude-code').status, 'READY');

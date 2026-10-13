@@ -39,6 +39,7 @@ Codex ignores `defaultEnabled`, so its users disable the plugin in their Codex c
 The wrapper declares no dependency on `pstack`, because a host enables every dependency of an enabled plugin.
 Both hosts cache a plugin at `<marketplace>/<plugin>/<version>`. `upstream-root.mjs` finds `pstack` beside the wrapper there.
 Plugin caches drop `.git`, so the resolver compares each pinned file with its Git blob hash from `upstream-tree.json`.
+Upstream also ships a root `plugin.json` in the Agent Plugins v1 format. It holds metadata only, and `claude plugin validate` reports the same component validation with and without it.
 
 Agents are not registered. With agent paths into the pinned tree, from a root entry or from `plugin.json`, `claude plugin details` listed no agents.
 The wrapper runs upstream agent prompts through general agents, so no workflow depends on registration.

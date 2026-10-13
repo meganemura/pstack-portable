@@ -16,6 +16,7 @@ When a catalog is incomplete, inspect the active project's and user's configured
 Use targeted discovery of `poteto-mode/SKILL.md`, `interrogate/SKILL.md`, and required `principle-*/SKILL.md` files.
 Common roots include `.agents/skills` and `.claude/skills`; use the actual environment configuration rather than assuming those paths.
 Resolve symlinks before looking for adjacent resources.
+Upstream `poteto-mode` expects bundled skills at `../<name>/SKILL.md` from its own file. Use the skill map when installed folders are not siblings.
 
 Create a map from upstream skill folder names to absolute `SKILL.md` paths.
 Frontmatter display names can differ from folder names, such as `Poteto Mode` and `poteto-mode`.
@@ -38,7 +39,7 @@ If retrieval is unavailable, keep the dependent lane unresolved and finish indep
 
 For `poteto-agent`, the execution requirement is to read upstream `poteto-mode` in full before work and its principle leaves when applied.
 When its separate agent file is unavailable, enforce that requirement through the child brief and report this substitution.
-For richer prompts such as Comment Sicko, recover the actual definition; do not invent an equivalent reviewer.
+For richer prompts such as Comment Sicko (`agents/comment-sicko.md`, requested as `subagent_type: "comment-sicko"`), recover the actual definition; do not invent an equivalent reviewer.
 
 ## Installation coverage
 
