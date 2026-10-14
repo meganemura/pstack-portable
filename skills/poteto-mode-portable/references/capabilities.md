@@ -97,7 +97,8 @@ Upstream writes a plan under the agent store's `docs/` unless the operator names
 
 ## Persistent mode
 
-Upstream Poteto Mode sets `mode: true` and a `reminder:` so Cursor keeps it active across tasks.
+Upstream keeps Poteto Mode active across turns through a Cursor Custom Mode, which the user picks from the `/` menu with Option+Enter or Alt+Enter.
+Upstream text that says to pick `/poteto-mode` from the `/` menu so Cursor attaches it to the message describes the same Cursor menu.
 Claude Code and Codex load a skill when it is invoked. Invoke `poteto-mode-portable` again for each new task. This wrapper installs no reminder.
 Upstream guide and `poteto-help` text about Custom Modes, Option+Enter, and Alt+Enter describes this Cursor feature. Outside Cursor, answer with the rule above.
 
@@ -116,6 +117,7 @@ Use the active host's configured skill directory at the same scope: project for 
 For the `reflect` search of plugin skills under `~/.cursor/plugins/`, use the host's installed skill and plugin locations.
 Confirm that directory from the host's configuration. `upstream.md` lists common roots; do not assume one.
 Report the chosen path. A skill written to a directory that the host does not read stays undiscovered.
+Upstream `poteto-agent` searches `~/.cursor/plugins/` for `poteto-mode/SKILL.md` when its parent gave no path. The delegation contract always gives the path, so that search does not run. A child that still lacks the path resolves it through the skill map in `upstream.md`, and stops and reports when none resolves.
 
 ## External skills and live verification
 
@@ -128,6 +130,7 @@ Report the chosen path. A skill written to a directory that the host does not re
 | A run's built-in PR tool | An exposed native PR tool, when the session has one; otherwise the forge CLI path that upstream names for runs without the tool |
 | Cursor dashboard status | Actual native child status and artifact evidence |
 | An image-generation tool | An exposed image tool; otherwise a text diagram, such as Mermaid, with the substitution reported |
+| `/visualize` charts and diagrams, as in `ketchup` | An exposed chart or diagram tool; otherwise a Mermaid diagram or chart drawn from the same facts, with the substitution reported |
 
 Read an available external skill before using it. Check that its tools exist in this session.
 If the required surface has no driver, keep live verification unresolved. Unit tests cannot silently replace a required live lane.
