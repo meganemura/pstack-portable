@@ -34,7 +34,7 @@ It offers two plugins. `pstack-portable` registers only the wrapper skill. `psta
 The submodule alone cannot carry upstream to every host. Claude Code clones it with the marketplace, but Codex clones Git marketplaces without submodules.
 The `pstack` plugin reaches both hosts from one entry and keeps upstream files unmodified, so the repository vendors nothing.
 
-`pstack` is disabled by default. Its 52 skills stay out of the session, and Cursor-dependent workflows cannot start without the wrapper.
+`pstack` is disabled by default. Its 53 skills stay out of the session, and Cursor-dependent workflows cannot start without the wrapper.
 Codex ignores `defaultEnabled`, so its users disable the plugin in their Codex configuration. A disabled plugin keeps its files in the cache.
 The wrapper declares no dependency on `pstack`, because a host enables every dependency of an enabled plugin.
 Both hosts cache a plugin at `<marketplace>/<plugin>/<version>`. `upstream-root.mjs` finds `pstack` beside the wrapper there.

@@ -1,6 +1,6 @@
 # Upstream hooks, scripts, and automations
 
-This mapping covers the fingerprinted pstack 0.15.21 executable resources.
+This mapping covers the fingerprinted pstack 0.15.23 executable resources.
 It distinguishes host hooks from scripts invoked by playbooks. A skills installation does not install a host's plugin hooks.
 
 ## Before executing a script
