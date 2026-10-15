@@ -75,3 +75,7 @@ When a workflow needs a capability that the host does not have, the wrapper repo
 
 The wrapper is [MIT-licensed](LICENSE).
 Upstream pstack attribution and its MIT license are in [NOTICE.md](NOTICE.md) and [LICENSE-pstack](LICENSE-pstack).
+
+---
+
+[Japanese](README.ja.md)
