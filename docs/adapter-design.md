@@ -76,6 +76,7 @@ Cloud execution and durable wake-up need concrete equivalents. Missing capabilit
 | A project sheet with an invalid environment marker | Report the mismatch; do not silently use global settings |
 | An unmarked legacy common sheet | Keep it for review; do not apply it to another host |
 | Per-model effort plus a role override | Apply the role override to that role, including all its panel entries |
+| A routine child outside Cursor | Lower the native effort from the role's resolved effort; keep the model ID and report a rejected adjustment |
 | An unreadable upstream installation | Request a readable root; do not fabricate upstream prompts |
 | No wake mechanism for an overnight run | Leave a checkpoint; report that continuation is unavailable |
 | An autopilot audit tick in Claude Code | Arm the native `/loop 1h` with the tick prompt; keep the session open and re-arm it within seven days |

@@ -61,7 +61,7 @@ function inspect() {
   const commander = resolve(scripts, 'node_modules/commander/package.json');
   if (!existsSync(marker) || !existsSync(commander) || readFileSync(marker, 'utf8').trim() !== key) return { status: 'BLOCKED', reason: 'The bootstrap would install dependencies. Review the existing lockfile and obtain dependency-install authorization before preparing this runtime.' };
   if (script === `${prefix}watch-pr/watch-pr` && !available('gh')) return { status: 'BLOCKED', reason: 'GitHub CLI is unavailable.' };
-  return { status: 'READY', command: ['bun', resolve(root, script)], requirements: script.endsWith('orch.ts') ? ['Pass --store with an explicit task-owned directory.'] : ['Verify GitHub authentication and repository context.', 'Polling output alone does not resume the agent.'] };
+  return { status: 'READY', command: ['bun', resolve(root, script)], requirements: script.endsWith('orch.ts') ? ['Pass --store with an explicit task-owned directory.', '`frontier set` needs an authenticated `gh`, or `origin` with `--forge origin`, in the repository it reads.'] : ['Verify GitHub authentication and repository context.', 'Polling output alone does not resume the agent.'] };
 }
 try {
   const result = inspect();
