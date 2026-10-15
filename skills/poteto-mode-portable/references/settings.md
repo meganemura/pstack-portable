@@ -58,6 +58,16 @@ If per-child effort is unavailable, report the limitation and request an accepte
 Missing role lines follow upstream defaults only when those defaults are supported natively. Otherwise keep the role unresolved until setup supplies a choice.
 Record model-family diversity gaps separately from model availability.
 
+## Effort for each spawn
+
+Upstream `poteto-mode` matches each spawn to its job. It moves the role's starting reasoning level one step up for the hardest work, one step down for judgment, and two or more steps down for routine work. It uses fast speed only when CI or trunk is red or a person is blocked now.
+In Cursor, apply that rule to the slug as upstream says.
+Elsewhere, the starting level is the effort this contract resolves for the role. Move it on the native tool's own effort scale and keep the model ID unchanged.
+When the resolved effort is `inherit` and the host does not expose the parent's effort, keep `inherit` and report the adjustment unapplied.
+Use a native per-child fast option only when the active tool exposes one. Otherwise run at standard speed, and say so when the job called for fast.
+Verification keeps the `swarm workers` model and effort without adjustment. A role on `auto` or `inherit-parent` keeps the parent model.
+If the tool rejects the adjusted effort, use the role's resolved effort and say so. Do not try another adjusted level.
+
 ## Legacy migration
 
 Legacy paths are `<project-root>/.pstack/models.md` and `~/.agents/pstack-models.md`.

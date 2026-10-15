@@ -14,6 +14,7 @@ For `setup-pstack`, keep upstream's role selection, budget discussion, model val
 Save only the active environment's file at the scope selected through `settings.md`.
 Keep effort separate from model identifiers when the native tool does so. Validate both against the actual execution tool.
 Do not rewrite a Cursor slug's suffix to invent a native model name.
+Upstream's per-spawn choice of reasoning level and speed follows the effort rules in `settings.md`.
 If settings are absent, inspect the upstream defaults and report which roles the current session can execute.
 Do not silently replace a requested model or an unavailable upstream default.
 
@@ -87,13 +88,15 @@ Do not search unrelated sessions or browser profiles.
 If history is unavailable, use the current checkout, commits, PRs, and supplied notes; label reconstruction gaps.
 Route `worktree-audit.sh` through the alternate audit in `executables.md`. Keep chat recency and PR state unresolved when evidence is unavailable.
 
-## Trunk re-reads and plan files
+## Trunk re-reads, plan files, and the agent store
 
 Upstream programs re-read playbooks and skills with `git show origin/main:pstack/<path>`. That path exists only when the target repository carries pstack at `pstack/` on its trunk.
 Otherwise, write each re-read against the resolved upstream source at the task's recorded revision, such as `git -C <upstream repository> show <revision>:pstack/<path>`.
 The task keeps one upstream revision. A re-read restores the instructions after drift; it does not pick up a newer upstream.
 The plan checker requires the literal `git show origin/main:`. A plan with translated re-reads fails that marker. Report that line as a translation mismatch and keep the other results. Do not add a placeholder line to pass it.
 Upstream writes a plan under the agent store's `docs/` unless the operator names a path. Outside Cursor, use a task-owned directory, and report the path.
+Autopilot owners write their decision trail, and every parent records its children, in the root agent's store, whose path Cursor's system prompt names.
+Outside Cursor, the root creates one task-owned directory, passes its absolute path in each owner brief, and reports it. A worker that cannot reach that path returns its rows in its reports, and the root records them.
 
 ## Persistent mode
 
@@ -131,6 +134,7 @@ Upstream `poteto-agent` searches `~/.cursor/plugins/` for `poteto-mode/SKILL.md`
 | Cursor dashboard status | Actual native child status and artifact evidence |
 | An image-generation tool | An exposed image tool; otherwise a text diagram, such as Mermaid, with the substitution reported |
 | `/visualize` charts and diagrams, as in `ketchup` | An exposed chart or diagram tool; otherwise a Mermaid diagram or chart drawn from the same facts, with the substitution reported |
+| Inline screenshots and videos, as in `ketchup` | Embed them where the host's reply renders them; otherwise link each captured file by path or URL and say it is not shown inline |
 
 Read an available external skill before using it. Check that its tools exist in this session.
 If the required surface has no driver, keep live verification unresolved. Unit tests cannot silently replace a required live lane.

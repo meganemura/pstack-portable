@@ -1,6 +1,6 @@
 # Upstream hooks, scripts, and automations
 
-This mapping covers the fingerprinted pstack 0.15.23 executable resources.
+This mapping covers the fingerprinted pstack 0.15.25 executable resources.
 It distinguishes host hooks from scripts invoked by playbooks. A skills installation does not install a host's plugin hooks.
 
 ## Before executing a script
@@ -25,9 +25,9 @@ An unknown script needs an explicit mapping. Test, typecheck, and library files 
 | Upstream entry | Handling |
 | --- | --- |
 | `show-me-your-work/scripts/log.sh` | Run with Bash. It writes the chosen TSV file; transcript verification remains a separate step. |
-| `poteto-mode/scripts/worktree-audit.sh` | Use the wrapper's Node audit in all environments. It reads Git state without Cursor transcript paths or macOS date/stat assumptions. It accepts upstream's `-b <pr-base-ref>`. Without it, the merge check uses `origin/HEAD`, then `origin/main`, then `origin/master`. |
+| `poteto-mode/scripts/worktree-audit.sh` | Use the wrapper's Node audit in all environments. It reads Git state without Cursor transcript paths or macOS date/stat assumptions. Upstream reads PR state from Origin or `gh`; the adapter does not query PRs. It accepts upstream's `-b <pr-base-ref>`. Without it, the merge check uses `origin/HEAD`, then `origin/main`, then `origin/master`. |
 | `poteto-mode/scripts/check-plan.mjs` | Run upstream with Node in Cursor and Claude Code. In Codex, retain manual plan review and report this automatic gate unresolved. The checker requires a `/loop 1h` audit tick in the program, and Codex has no verified recurring loop command. Its `git show origin/main:` marker follows the trunk re-read rule in `capabilities.md`. |
-| `poteto-mode/scripts/orch/orch.ts` | Bun and prepared locked dependencies are required. Pass `--store` with an explicit task-owned directory instead of assuming a Cursor agent store. |
+| `poteto-mode/scripts/orch/orch.ts` | Bun and prepared locked dependencies are required. Pass `--store` with an explicit task-owned directory instead of assuming a Cursor agent store. `frontier set` walks the pull request base chain from the checkout's current branch with `gh`, or with `origin` under `--forge origin`, so it needs that forge CLI authenticated in `--repo`. Graphite is no longer used. |
 | `poteto-mode/scripts/watch-pr/watch-pr` | Bun, prepared locked dependencies, and authenticated `gh` are required. It watches GitHub; wake-up capability is separate. |
 | `poteto-mode/scripts/bootstrap.ts` | A dependency helper, not a direct task command. Preflight blocks entry points whose bootstrap would auto-install. |
 

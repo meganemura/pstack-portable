@@ -34,7 +34,7 @@ It offers two plugins. `pstack-portable` registers only the wrapper skill. `psta
 The submodule alone cannot carry upstream to every host. Claude Code clones it with the marketplace, but Codex clones Git marketplaces without submodules.
 The `pstack` plugin reaches both hosts from one entry and keeps upstream files unmodified, so the repository vendors nothing.
 
-`pstack` is disabled by default. Its 53 skills stay out of the session, and Cursor-dependent workflows cannot start without the wrapper.
+`pstack` is disabled by default. Its 54 skills stay out of the session, and Cursor-dependent workflows cannot start without the wrapper.
 Codex ignores `defaultEnabled`, so its users disable the plugin in their Codex configuration. A disabled plugin keeps its files in the cache.
 The wrapper declares no dependency on `pstack`, because a host enables every dependency of an enabled plugin.
 Both hosts cache a plugin at `<marketplace>/<plugin>/<version>`. `upstream-root.mjs` finds `pstack` beside the wrapper there.
@@ -76,6 +76,7 @@ Cloud execution and durable wake-up need concrete equivalents. Missing capabilit
 | A project sheet with an invalid environment marker | Report the mismatch; do not silently use global settings |
 | An unmarked legacy common sheet | Keep it for review; do not apply it to another host |
 | Per-model effort plus a role override | Apply the role override to that role, including all its panel entries |
+| A routine child outside Cursor | Lower the native effort from the role's resolved effort; keep the model ID and report a rejected adjustment |
 | An unreadable upstream installation | Request a readable root; do not fabricate upstream prompts |
 | No wake mechanism for an overnight run | Leave a checkpoint; report that continuation is unavailable |
 | An autopilot audit tick in Claude Code | Arm the native `/loop 1h` with the tick prompt; keep the session open and re-arm it within seven days |

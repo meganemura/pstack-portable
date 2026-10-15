@@ -9,7 +9,7 @@
     {
       "name": "pstack-portable",
       "source": ".",
-      "version": "0.4.3",
+      "version": "0.4.4",
       "description": "Run unmodified upstream pstack in Claude Code, Codex, and Cursor through a thin execution wrapper.",
       "author": {
         "name": "meganemura",
@@ -25,7 +25,7 @@
     {
       "name": "pstack",
       "description": "Upstream pstack, unmodified and pinned to the commit the wrapper fingerprints. Disabled by default; the wrapper reads its files.",
-      "version": "0.15.23",
+      "version": "0.15.25",
       "defaultEnabled": false,
       "license": "MIT",
       "homepage": "https://github.com/cursor/plugins/tree/main/pstack",
@@ -33,7 +33,7 @@
         "source": "git-subdir",
         "url": "https://github.com/cursor/plugins.git",
         "path": "pstack",
-        "sha": "c86f349b102feb91f1966f8a6a60882a4e601b50"
+        "sha": "6ce45c59b9301a638c1fe1a7b8dc2a82b650898f"
       }
     }
   ]
