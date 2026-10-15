@@ -1,0 +1,4 @@
+{
+  "description": "One function-hooks module: pstack-pane, the pane of a poteto-mode run's steps, delegates, and artifacts.",
+  "modules": ["./mod.tsx"]
+}

@@ -35,6 +35,17 @@
         "path": "pstack",
         "sha": "6ce45c59b9301a638c1fe1a7b8dc2a82b650898f"
       }
+    },
+    {
+      "name": "pstack-pane",
+      "source": "./pane",
+      "version": "0.1.0",
+      "description": "A pane beside the Claude Code transcript that shows the intermediate artifacts of a poteto-mode run: its playbook, steps, delegates, and artifact files with a preview.",
+      "author": {
+        "name": "meganemura",
+        "url": "https://github.com/meganemura"
+      },
+      "license": "MIT"
     }
   ]
 }
