@@ -65,6 +65,15 @@ Use poteto-mode-portable to tdd this fix.
 `<host>` は `claude-code` か `codex` です。
 プロジェクトのファイルが優先されます。
 
+### run をペインで見る
+
+`pstack-pane` は、この marketplace にある任意の Claude Code mod です。
+poteto-mode の run の playbook、手順、subagent、成果物のファイルを、トランスクリプトの横のペインに表示します。
+`claude plugin install pstack-pane@pstack-portable` で入れて、`/pstack-pane` で表示を切り替えます。
+ほかの 2 つの plugin は要りません。
+Codex と Cursor はこの mod を読み込みません。
+詳しくは [pane/README.md](pane/README.md) を見てください。
+
 ## できないこと
 
 wrapper が仕事を渡す先は、今のホストの subagent だけです。

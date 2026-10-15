@@ -63,6 +63,15 @@ In each host, ask `Use poteto-mode-portable to configure pstack.`
 The setup writes `.pstack/models/<host>.md` for one project, or `~/.agents/pstack/models/<host>.md` for all projects, where `<host>` is `claude-code` or `codex`.
 The project file takes precedence.
 
+### Watch a run in a pane
+
+`pstack-pane` is an optional Claude Code mod in this marketplace.
+It shows the playbook, the steps, the subagents, and the artifact files of a poteto-mode run in a pane beside the transcript.
+Install it with `claude plugin install pstack-pane@pstack-portable`, then toggle it with `/pstack-pane`.
+It does not need the other two plugins.
+Codex and Cursor do not load it.
+See [pane/README.md](pane/README.md).
+
 ## Limits
 
 The wrapper delegates only to subagents of the current host.
