@@ -1,6 +1,6 @@
 {
   "name": "pstack-portable",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "Run unmodified upstream pstack in Claude Code, Codex, and Cursor through a thin execution wrapper.",
   "author": {
     "name": "meganemura",
