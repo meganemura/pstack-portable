@@ -1,10 +1,10 @@
 {
-  "commit": "99743e9c151c8537cbbf1f98bb38f34ef3368453",
+  "commit": "182f2ce414e83224915c190d2f63239c1608d0a5",
   "files": {
     ".cursor-plugin/plugin.json": "9172fd0dc6edd2f26c49a7ba25cdc691895e50aa",
     ".gitignore": "aafcb345668bd80cbb256b066898d4df8988da0e",
     "LICENSE": "6b5400237fdf6545be0b8fae370d6f2fcff8fb25",
-    "README.md": "4e8b8c2a6a7720cfaea76c4d6a0dbd923372d316",
+    "README.md": "b26dfdd21a9303ec4d057457e851859948354317",
     "agents/comment-sicko.md": "209e3704dfa75022060c936bd3f3362fa3bbe254",
     "agents/poteto-agent.md": "e1d2df2e8c3c4954b87ee1b29655c898bc7ee699",
     "assets/logo.png": "3754e87cb0e1362f17428bc84c661166ee145156",
@@ -37,6 +37,7 @@
     "docs/guide/images/router.jpg": "c8fba6a266505caf406d5185d7a4cc6e34be98a4",
     "docs/guide/images/understanding.jpg": "bb1b1ac15dd11da9ad047d203049a1a24abb2b46",
     "docs/guide/images/verification.jpg": "a252ae0b5e14cb6fcef2e3b806bbd66316242446",
+    "docs/harness/claude-code.md": "012a54f216e5f7ee9000892bf5e47a1526719dcb",
     "plugin.json": "199469f97c82ec00a6d000f39cf65732b3cdd3e3",
     "skills/architect/SKILL.md": "88e23ca105b89e67f4085d0e676c40d4b170a623",
     "skills/architect/references/design-red-flags.md": "f8503c9595b289c607ff5088f82b21197edf94ec",

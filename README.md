@@ -44,6 +44,8 @@ To stay on one release, add the marketplace at its tag: `meganemura/pstack-porta
 
 Cursor runs upstream pstack natively and does not need the wrapper.
 The wrapper manifest in `.cursor-plugin/` is untested.
+Upstream `cursor/plugins` also installs pstack in Claude Code as `pstack@cursor-plugins`, with its own name mapping.
+That install does not use the wrapper, and this repository does not test it.
 To install from a clone instead of a plugin, follow [Install from local checkouts](docs/install-local.md).
 
 ## Use
