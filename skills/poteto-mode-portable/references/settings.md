@@ -25,6 +25,7 @@ Read-only work that needs no delegation can continue while settings are pending.
 For setup, update the active selected portable sheet in place. A global sheet stays global on reconfiguration unless the user changes its scope.
 With no existing portable sheet, default to the project path. An explicit global request uses the global path above.
 Native Cursor legacy settings are read-only migration input; save their confirmed translation to a portable environment file.
+In Claude Code, `~/.claude/rules/pstack-models.md` from upstream's separate `pstack@cursor-plugins` install is also read-only migration input. It is never a selected sheet, even when Claude Code has loaded it into context. Its role values are `<model> <effort>` pairs, such as `opus high`.
 Show all roles, model effort values, and the destination before saving new choices. Preserve the upstream setup confirmation requirement.
 Migration of previously approved choices can proceed without asking for the same approval again.
 
