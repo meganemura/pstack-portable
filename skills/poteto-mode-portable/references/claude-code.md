@@ -24,6 +24,20 @@ Translate Cursor model slugs through confirmed native choices; do not pass Grok 
 For other model families, follow the model capability rule in `capabilities.md`.
 Use native worktree isolation when exposed. Otherwise prepare separate worktrees and assign their absolute paths before concurrent writes.
 
+## Upstream Claude Code adapter
+
+Upstream ships its own Claude Code name table at `docs/harness/claude-code.md` in the selected pstack root.
+Core upstream skills do not link it. Only upstream's generated Claude Code plugin adds that link.
+Read it for mappings that this file and `capabilities.md` leave open, such as the Claude Code transcript folder, `claude-<family>-<version>-<effort>` slugs split into model and effort, and local copies of upstream files that a skill links on GitHub `main`.
+Where it differs from this wrapper, the wrapper contract governs:
+
+- `setup-pstack` saves the sheet that `settings.md` selects. Do not write `~/.claude/rules/pstack-models.md`, which belongs to the separate `pstack@cursor-plugins` install. When that file is in context, follow `settings.md` for it.
+- A Grok, GPT, or other unavailable model keeps the diversity rule in `capabilities.md`. Report the gap instead of silently running the session model.
+- The wrapper's `pstack` plugin is disabled and registers no agents. Do not use `pstack:poteto-agent` or `pstack:comment-sicko` unless the session lists them; follow the delegation contract instead.
+- Tell the user to run upstream skills through `poteto-mode-portable`, not as `/pstack:<name>`.
+- `environment: "cloud"` follows the cloud rules in `capabilities.md`, which also require naming the local differences before dispatch.
+- A step that needs a Cursor-only feature gets the adapter's one-line skip note. Also classify it with its effect on the completion verdict, as `capabilities.md` requires.
+
 Official reference, checked on 2026-10-03:
 
 - [Create custom subagents](https://code.claude.com/docs/en/sub-agents)

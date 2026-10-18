@@ -110,6 +110,7 @@ Upstream guide and `poteto-help` text about Custom Modes, Option+Enter, and Alt+
 Upstream `poteto-help` answers questions about Cursor setup and use. Answer for the active host instead.
 Its check for `~/.cursor/rules/pstack-models.mdc` means the selection in `settings.md`. When no sheet is selected for the active environment, setup has not run there.
 Install steps such as `/add-plugin pstack` apply to Cursor. Outside Cursor, refer to the installation that provided this wrapper.
+Upstream README steps that install `pstack@cursor-plugins` in Claude Code describe a separate install that does not use this wrapper. Name it as that alternative.
 Example prompts that start with an upstream slash command run through `poteto-mode-portable` outside Cursor. Give the prompt in that form.
 Link upstream files at the recorded source revision, `https://github.com/cursor/plugins/blob/<revision>/pstack/<path>`. Use `main` only when the revision is unknown, and say so.
 
@@ -129,7 +130,7 @@ Upstream `poteto-agent` searches `~/.cursor/plugins/` for `poteto-mode/SKILL.md`
 | Cursor `create-skill` | Available native skill-authoring guidance, such as `skill-creator`, with repository requirements |
 | `cursor-team-kit/deslop` | Readable installed skill, or an explicit code-quality review of the changed artifact; report the substitution |
 | `control-ui` or `control-cli` | Available control skill or a named driver that exercises the same real behavior |
-| Cursor built-in babysit | Upstream pstack's babysit playbook |
+| Cursor built-in babysit, which the upstream README now calls `/autopilot` | Upstream pstack's babysit playbook |
 | A run's built-in PR tool | An exposed native PR tool, when the session has one; otherwise the forge CLI path that upstream names for runs without the tool |
 | Cursor dashboard status | Actual native child status and artifact evidence |
 | An image-generation tool | An exposed image tool; otherwise a text diagram, such as Mermaid, with the substitution reported |

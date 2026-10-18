@@ -19,7 +19,7 @@ Resolve symlinks before looking for adjacent resources.
 Upstream `poteto-mode` expects bundled skills at `../<name>/SKILL.md` from its own file. Use the skill map when installed folders are not siblings.
 
 Create a map from upstream skill folder names to absolute `SKILL.md` paths.
-Frontmatter display names can differ from folder names, such as `Poteto Mode` and `poteto-mode`.
+Frontmatter names can differ from folder names in older or forked installs, such as `Poteto Mode` for `poteto-mode`. Key the map by folder name.
 Resolve a routed skill through this map. Resolve its playbooks, references, and scripts relative to that skill's real directory.
 An installed skill folder need not have a surrounding `skills` directory.
 Keep one selected source per skill. When available, verify its installer source is `cursor/plugins` with the `pstack` subdirectory.

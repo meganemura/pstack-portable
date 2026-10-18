@@ -39,6 +39,8 @@ Codex ignores `defaultEnabled`, so its users disable the plugin in their Codex c
 The wrapper declares no dependency on `pstack`, because a host enables every dependency of an enabled plugin.
 Both hosts cache a plugin at `<marketplace>/<plugin>/<version>`. `upstream-root.mjs` finds `pstack` beside the wrapper there.
 Plugin caches drop `.git`, so the resolver compares each pinned file with its Git blob hash from `upstream-tree.json`.
+Upstream now ships its own Claude Code plugin, `pstack@cursor-plugins`. It installs a tree generated outside `pstack/` with an adapter line in each skill that uses Cursor names.
+The wrapper pins `pstack/` itself, so that line is absent. The Claude Code reference reads the upstream adapter file by path and states where the wrapper contract differs.
 Upstream also ships a root `plugin.json` in the Agent Plugins v1 format. It holds metadata only, and `claude plugin validate` reports the same component validation with and without it.
 
 Agents are not registered. With agent paths into the pinned tree, from a root entry or from `plugin.json`, `claude plugin details` listed no agents.
@@ -87,6 +89,7 @@ Cloud execution and durable wake-up need concrete equivalents. Missing capabilit
 | Code delegated to a repository-defined agent | Brief carries the contract paths and the quoted Comments rule; the parent runs `no-comments` before review |
 | A user rule asks for module header comments | Write a short header with only what the code cannot show |
 | A plugin-installed wrapper beside a disabled `pstack` plugin | Select that plugin by its pinned files; keep its skills unregistered |
+| Upstream's Claude Code adapter says `setup-pstack` writes `~/.claude/rules/pstack-models.md` | Save the active host's sheet through `settings.md`; read that file only as migration input |
 | A configured upstream root differs from the pinned commit | Select the matched submodule and name the stale config; without one, exit with a reported version gap |
 
 Initial validation checks local file links, frontmatter, upstream resolution, and the written contract against these cases.

@@ -45,6 +45,8 @@ Claude Code では `meganemura/pstack-portable#v<version>`、Codex では `--ref
 
 Cursor は upstream の pstack をそのまま動かせるので、wrapper は要りません。
 `.cursor-plugin/` にある wrapper の定義は試していません。
+upstream の `cursor/plugins` も、独自の名前の対応表を付けて pstack を `pstack@cursor-plugins` として Claude Code に入れられます。
+その入れ方は wrapper を使わず、このリポジトリでは試していません。
 plugin ではなく clone から入れるときは、[Install from local checkouts](docs/install-local.md) に従います。
 
 ## 使う
