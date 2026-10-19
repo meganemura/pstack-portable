@@ -1,5 +1,11 @@
 # pstack-portable
 
+> [!IMPORTANT]
+> This repository is archived and is no longer maintained.
+> It gets no more updates, upstream syncs, or fixes.
+> The last release is `v0.4.5`, which pins upstream pstack at the commit that it supports.
+> Existing installs continue to work at that release, but they do not get new upstream changes.
+
 Run upstream [pstack](https://github.com/cursor/plugins/tree/main/pstack) in Claude Code and Codex.
 Upstream owns the workflows.
 This repository adds one wrapper skill, `poteto-mode-portable`, that translates Cursor tools into the tools of the current host.

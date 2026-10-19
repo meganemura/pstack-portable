@@ -1,5 +1,11 @@
 # pstack-portable
 
+> [!IMPORTANT]
+> このリポジトリはアーカイブ済みで、メンテナンスを終了しました。
+> 今後、更新、upstream の同期、修正はしません。
+> 最後のリリースは `v0.4.5` で、upstream の pstack は対応するコミットに固定されています。
+> 入れてある環境はそのリリースのまま動きますが、upstream の新しい変更は入りません。
+
 upstream の [pstack](https://github.com/cursor/plugins/tree/main/pstack) を Claude Code と Codex で動かします。
 ワークフローは upstream が持ちます。
 このリポジトリが足すのは wrapper skill の `poteto-mode-portable` 1 つで、Cursor のツールを今のホストのツールに置き換えます。
