@@ -27,7 +27,7 @@ Use native worktree isolation when exposed. Otherwise prepare separate worktrees
 ## Upstream Claude Code adapter
 
 Upstream ships its own Claude Code name table at `docs/harness/claude-code.md` in the selected pstack root.
-Core upstream skills do not link it. Only upstream's generated Claude Code plugin adds that link.
+Of the core upstream skills, only `poteto-help` links it, in its Claude Code install note. Upstream's generated Claude Code plugin adds a link to every skill that uses Cursor names.
 Read it for mappings that this file and `capabilities.md` leave open, such as the Claude Code transcript folder, `claude-<family>-<version>-<effort>` slugs split into model and effort, and local copies of upstream files that a skill links on GitHub `main`.
 Where it differs from this wrapper, the wrapper contract governs:
 

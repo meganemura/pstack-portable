@@ -110,13 +110,14 @@ Upstream guide and `poteto-help` text about Custom Modes, Option+Enter, and Alt+
 Upstream `poteto-help` answers questions about Cursor setup and use. Answer for the active host instead.
 Its check for `~/.cursor/rules/pstack-models.mdc` means the selection in `settings.md`. When no sheet is selected for the active environment, setup has not run there.
 Install steps such as `/add-plugin pstack` apply to Cursor. Outside Cursor, refer to the installation that provided this wrapper.
-Upstream README steps that install `pstack@cursor-plugins` in Claude Code describe a separate install that does not use this wrapper. Name it as that alternative.
+Upstream README, guide, and `poteto-help` steps that install `pstack@cursor-plugins` in Claude Code describe a separate install that does not use this wrapper. Name it as that alternative.
 Example prompts that start with an upstream slash command run through `poteto-mode-portable` outside Cursor. Give the prompt in that form.
 Link upstream files at the recorded source revision, `https://github.com/cursor/plugins/blob/<revision>/pstack/<path>`. Use `main` only when the revision is unknown, and say so.
 
 ## Skill directories
 
 Upstream writes and searches skills in `.cursor/skills/` and `~/.cursor/skills/`. Examples are `create-verification-skill`, `automate-me`, and the `reflect` reviewers.
+`create-formal-verification-skill`, the formal verification offer in `setup-pstack`, and the matching `poteto-help` check write or look for a project-local skill without naming a directory. Use the active host's project skill directory for them too.
 Use the active host's configured skill directory at the same scope: project for `.cursor/skills/`, user for `~/.cursor/skills/`.
 For the `reflect` search of plugin skills under `~/.cursor/plugins/`, use the host's installed skill and plugin locations.
 Confirm that directory from the host's configuration. `upstream.md` lists common roots; do not assume one.
