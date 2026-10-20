@@ -2,6 +2,7 @@
 
 > [!IMPORTANT]
 > This repository is archived and is no longer maintained.
+> Upstream [pstack](https://github.com/cursor/plugins/tree/main/pstack) now supports Claude Code, so use upstream directly in Claude Code.
 > It gets no more updates, upstream syncs, or fixes.
 > The last release is `v0.4.5`, which pins upstream pstack at the commit that it supports.
 > Existing installs continue to work at that release, but they do not get new upstream changes.

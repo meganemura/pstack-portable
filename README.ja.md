@@ -2,6 +2,7 @@
 
 > [!IMPORTANT]
 > このリポジトリはアーカイブ済みで、メンテナンスを終了しました。
+> upstream の [pstack](https://github.com/cursor/plugins/tree/main/pstack) が Claude Code に対応したので、Claude Code では upstream を直接使ってください。
 > 今後、更新、upstream の同期、修正はしません。
 > 最後のリリースは `v0.4.5` で、upstream の pstack は対応するコミットに固定されています。
 > 入れてある環境はそのリリースのまま動きますが、upstream の新しい変更は入りません。
